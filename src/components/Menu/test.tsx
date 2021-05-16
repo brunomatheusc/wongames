@@ -1,13 +1,14 @@
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
+import { renderWithTheme } from '../../utils/test/helpers';
 
 import Menu from '.';
 
 describe('<Menu />', () => {
 	it('should render the Menu', () => {
-		const { container } = render(<Menu />);
+		renderWithTheme(<Menu />);
 
-		expect(screen.getByRole('Menu', { name: /Menu/i })).toBeInTheDocument();
-
-		expect(container.firstChild).toMatchSnapshot();
+		expect(screen.getByLabelText(/open menu/i)).toBeInTheDocument();
+		expect(screen.getByLabelText(/search/i)).toBeInTheDocument();
+		expect(screen.getByLabelText(/open shopping cart/i)).toBeInTheDocument();
 	});
 });
