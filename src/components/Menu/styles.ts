@@ -84,6 +84,29 @@ export const MenuLink = styled.a`
 	`}
 `;
 
+export const RegisterBox = styled.div`
+	${({ theme }) => css`
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		padding: 0 ${theme.spacings.xlarge} ${theme.spacings.xlarge};
+
+		> span {
+			display: block;
+			margin: ${theme.spacings.xxsmall} 0;
+			font-size: ${theme.font.sizes.xsmall};
+		}
+	`}
+`;
+
+export const CreateAccount = styled.a`
+	${({ theme }) => css`
+		text-decoration: none;
+		color: ${theme.colors.primary};
+		border-bottom: 0.2rem solid ${theme.colors.primary};
+	`}
+`;
+
 export const MenuFull = styled.nav<MenuFullProps>`
 	${({ theme, isOpen }) => css`
 		display: flex;
@@ -101,8 +124,9 @@ export const MenuFull = styled.nav<MenuFullProps>`
 
 		overflow: hidden;
 
-		pointer-events: ${isOpen ? 'all' : 'none'};
+		transition: opacity 0.3s ease-in-out;
 		opacity: ${isOpen ? 1 : 0};
+		pointer-events: ${isOpen ? 'all' : 'none'};
 
 		> svg {
 			position: absolute;
@@ -128,29 +152,14 @@ export const MenuFull = styled.nav<MenuFullProps>`
 			font-weight: ${theme.font.bold};
 			font-size: ${theme.font.sizes.xlarge};
 			margin-bottom: ${theme.spacings.small};
+			transform: ${isOpen ? 'translateY(0)' : 'translateY(3rem)'};
+			transition: transform 0.3s ease-in-out;
 		}
-	`}
-`;
 
-export const RegisterBox = styled.div`
-	${({ theme }) => css`
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		padding: 0 ${theme.spacings.xlarge} ${theme.spacings.xlarge};
 
-		> span {
-			display: block;
-			margin: ${theme.spacings.xxsmall} 0;
-			font-size: ${theme.font.sizes.xsmall};
+		${RegisterBox} {
+			transform: ${isOpen ? 'translateY(0)' : 'translateY(3rem)'};
+			transition: transform 0.3s ease-in-out;
 		}
-	`}
-`;
-
-export const CreateAccount = styled.a`
-	${({ theme }) => css`
-		text-decoration: none;
-		color: ${theme.colors.primary};
-		border-bottom: 0.2rem solid ${theme.colors.primary};
 	`}
 `;
