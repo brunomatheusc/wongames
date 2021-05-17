@@ -6,7 +6,11 @@ import Logo from '../../components/Logo';
 import { useState } from 'react';
 import Button from 'components/Button';
 
-export default function Menu() {
+export type MenuProps = {
+	username?: string;
+}
+
+export default function Menu({ username }: MenuProps) {
 	const [isOpen, setIsOpen] = useState(false);
 
 	return (
@@ -36,8 +40,15 @@ export default function Menu() {
 					<S.MenuLink href="#">Home</S.MenuLink>
 					<S.MenuLink href="#">Explore</S.MenuLink>
 
+					{ !!username && (
+					<>
+						<S.MenuLink href="#">My account</S.MenuLink>
+						<S.MenuLink href="#">Wishlist</S.MenuLink>
+					</>
+					)}
 				</S.MenuNav>
 
+				{ !username &&
 				<S.RegisterBox>
 					<Button fullWidth size="large">Login now</Button>
 
@@ -45,6 +56,7 @@ export default function Menu() {
 
 					<S.CreateAccount href="#" title="Sign up">Sign Up</S.CreateAccount>
 				</S.RegisterBox>
+				}
 			</S.MenuFull>
 		</S.Wrapper>
 	);
