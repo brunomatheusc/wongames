@@ -5,6 +5,7 @@ import { RiMenu2Fill as MenuIcon } from 'react-icons/ri';
 import Logo from '../../components/Logo';
 import { useState } from 'react';
 import Button from 'components/Button';
+import MediaMatch from 'components/MediaMatch';
 
 export type MenuProps = {
 	username?: string;
@@ -15,13 +16,22 @@ export default function Menu({ username }: MenuProps) {
 
 	return (
 		<S.Wrapper>
-			<S.IconWrapper onClick={() => setIsOpen(true)}>
-				<MenuIcon aria-label="Open menu" />
-			</S.IconWrapper>
+			<MediaMatch lessThan="medium">
+				<S.IconWrapper onClick={() => setIsOpen(true)}>
+					<MenuIcon aria-label="Open menu" />
+				</S.IconWrapper>
+			</MediaMatch>
 
 			<S.LogoWrapper>
 				<Logo hideOnMobile />
 			</S.LogoWrapper>
+
+			<MediaMatch greaterThan="medium">
+				<S.MenuNav>
+					<S.MenuLink href="#">Home</S.MenuLink>
+					<S.MenuLink href="#">Explore</S.MenuLink>
+				</S.MenuNav>
+			</MediaMatch>
 
 			<S.MenuGroup>
 				<S.IconWrapper>
@@ -31,6 +41,12 @@ export default function Menu({ username }: MenuProps) {
 				<S.IconWrapper>
 					<ShoppingCartIcon aria-label="Open Shopping Cart" />
 				</S.IconWrapper>
+
+			{ !username &&
+				<MediaMatch greaterThan="medium">
+					<Button>Sign in</Button>
+				</MediaMatch>
+			}
 			</S.MenuGroup>
 
 			<S.MenuFull isOpen={isOpen} aria-hidden={!isOpen}>
