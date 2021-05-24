@@ -7,6 +7,8 @@ type WrapperProps = Pick<HighlightProps, 'backgroundImage'>;
 export const Wrapper = styled.section<WrapperProps>`
 	${({ backgroundImage }) => css`
 		display: grid;
+		grid-template-areas: 'floatImage content';
+		grid-template-columns: 1.3fr 2fr;
 		position: relative;
 		height: 23rem;
 
@@ -28,8 +30,22 @@ export const Wrapper = styled.section<WrapperProps>`
 	`}
 `;
 
+export const FloatImage = styled.img`
+	${({ theme }) => css`
+		grid-area: floatImage;
+		max-height: 23rem;
+		z-index: ${theme.layers.base};
+		align-self: end;
+
+		${media.greaterThan('medium')`
+			max-height: 32rem;
+		`}
+	`}
+`;
+
 export const Content = styled.div`
 	${({ theme }) => css`
+		grid-area: content;
 		z-index: ${theme.layers.base};
 		text-align: right;
 		padding: ${theme.spacings.xsmall};

@@ -25,4 +25,10 @@ describe('<Highlight />', () => {
 
 		expect(container.firstChild).toHaveStyle({ backgroundImage: `url(${props.backgroundImage})`})
 	});
+
+	it('should render float image', () => {
+		renderWithTheme(<Highlight { ...props } floatImage="/float-image.png"/>);
+
+		expect(screen.getByRole('img', { name: props.title })).toHaveAttribute('src', '/float-image.png');
+	});
 });

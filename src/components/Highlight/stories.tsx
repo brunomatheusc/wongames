@@ -5,7 +5,7 @@ export default {
 	title: 'Highlight',
 	component: Highlight,
 	args: {
-		title: 'Read Dead it\'s back',
+		title: 'Read Dead is back',
 		subtitle: 'Come see Jonh\'s new adventures',
 		backgroundImage: '/img/red-dead-img.jpg',
 		buttonLabel: 'Buy now',
@@ -13,4 +13,18 @@ export default {
 	}
 } as Meta;
 
-export const Basic: Story<HighlightProps> = (args) => <Highlight {...args}/>;
+export const Basic: Story<HighlightProps> = (args) => (
+	<div style={{ width: '104rem' }}>
+		<Highlight {...args}/>
+	</div>
+);
+
+export const WithFloatImage: Story<HighlightProps> = (args) => (
+	<div>
+		<Highlight {...args}/>
+	</div>
+);
+
+WithFloatImage.args = {
+	floatImage: '/img/red-dead-float.png',
+}
