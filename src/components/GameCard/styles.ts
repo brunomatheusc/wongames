@@ -96,7 +96,7 @@ export const FavButton = styled.div`
 		cursor: pointer;
 
 		svg {
-			w2width: 2.5rem;
+			width: 2.5rem;
 		}
 	`}
 `;
