@@ -15,7 +15,7 @@ export const parameters = {
 export const decorators = [
 	(Story) => (
 		<ThemeProvider theme={theme}>
-			<Global />
+			<Global removeBg />
 			<Story />
 		</ThemeProvider>
 	)
