@@ -10,9 +10,7 @@ export default function Footer() {
 
 			<S.Content>
 				<S.Column>
-					<Heading color="black" size="small" lineBottom lineColor="secondary">
-						Contact
-					</Heading>
+					<Heading color="black" size="small" lineBottom lineColor="secondary">Contact us</Heading>
 
 					<a href="mailto:sac@wongames.com">sac@wongames.com</a>
 				</S.Column>
@@ -29,7 +27,7 @@ export default function Footer() {
 				</S.Column>
 
 				<S.Column>
-					<Heading color="black" lineColor="secondary" lineBottom size="small">Link</Heading>
+					<Heading color="black" lineColor="secondary" lineBottom size="small">Links</Heading>
 
 					<nav aria-labelledby="footer resources">
 						<Link href="/">Home</Link>
