@@ -6,13 +6,14 @@ type ButtonTypes = AnchorHTMLAttributes<HTMLAnchorElement> | ButtonHTMLAttribute
 export type ButtonProps = {
 	size?: 'small' | 'medium' | 'large';
 	fullWidth?: boolean;
+	minimal?: boolean;
 	icon?: ReactNode;
 	as?: ElementType;
 } & ButtonTypes;
 
-export default function Button({ children, size = 'medium', fullWidth = false, icon, ...props }: ButtonProps) {
+export default function Button({ children, size = 'medium', fullWidth = false, minimal = false, icon, ...props }: ButtonProps) {
 	return (
-		<S.Wrapper size={size} fullWidth={fullWidth} hasIcon={!!icon} {...props}>
+		<S.Wrapper size={size} fullWidth={fullWidth} hasIcon={!!icon} minimal={minimal} {...props}>
 			{ !!icon && icon }
 			{ !!children && <span>{ children }</span> }
 		</S.Wrapper>
