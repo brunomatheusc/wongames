@@ -1,6 +1,7 @@
 {
 	"plugins": [
-		["babel-plugin-styled-components", { "ssr": true, "displayName": true }]
+		["babel-plugin-styled-components", { "ssr": true, "displayName": true }],
+		"react-html-attrs"
 	],
 	"presets": ["next/babel", "@babel/preset-typescript"],
 	"env": {
