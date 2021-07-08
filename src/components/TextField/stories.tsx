@@ -1,4 +1,5 @@
 import { Story, Meta } from '@storybook/react/types-6-0';
+import { Email } from '@styled-icons/material-outlined';
 import TextField, { TextFieldProps } from '.';
 
 export default {
@@ -7,9 +8,14 @@ export default {
 	args: {
 		label: 'E-mail',
 		labelFor: 'Email',
+		icon: <Email />,
 		id: 'Email',
 		initialValue: '',
 		placeholder: 'jonh.doe@gmail.com'
+	},
+	argTypes: {
+		onInput: { action: 'changed' },
+		icon: { type: '' }
 	}
 } as Meta;
 

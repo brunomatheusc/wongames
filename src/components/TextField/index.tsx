@@ -1,7 +1,8 @@
-import { ChangeEvent, InputHTMLAttributes, useState } from 'react';
+import { ChangeEvent, InputHTMLAttributes, ReactNode, useState } from 'react';
 import * as S from './styles';
 
 export type TextFieldProps = {
+	icon?: ReactNode;
 	label?: string;
 	labelFor?: string;
 	labelColor?: 'white' | 'black';
@@ -9,7 +10,7 @@ export type TextFieldProps = {
 	initialValue?: string;
 } & InputHTMLAttributes<HTMLInputElement>;
 
-export default function TextField({label, labelFor = '', initialValue = '', onInput, ...props}: TextFieldProps) {
+export default function TextField({label, labelFor = '', initialValue = '', onInput, icon, ...props}: TextFieldProps) {
 	const [value, setValue] = useState(initialValue);
 
 	function onChange (e: ChangeEvent<HTMLInputElement>) {
@@ -24,6 +25,7 @@ export default function TextField({label, labelFor = '', initialValue = '', onIn
 			{ !!label && <S.Label htmlFor={labelFor}>{label}</S.Label>}
 
 			<S.InputWrapper>
+				{ !!icon && <S.Icon>{ icon }</S.Icon> }
 				<S.Input type="text" onChange={onChange} value={value} { ...props } />
 			</S.InputWrapper>
 		</S.Wrapper>
