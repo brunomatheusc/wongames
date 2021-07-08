@@ -2,7 +2,9 @@ import { ChangeEvent, InputHTMLAttributes, ReactNode, useState } from 'react';
 import * as S from './styles';
 
 export type TextFieldProps = {
+	disabled?: boolean;
 	icon?: ReactNode;
+	iconPosition?: 'left' | 'right';
 	label?: string;
 	labelFor?: string;
 	labelColor?: 'white' | 'black';
@@ -10,7 +12,7 @@ export type TextFieldProps = {
 	initialValue?: string;
 } & InputHTMLAttributes<HTMLInputElement>;
 
-export default function TextField({label, labelFor = '', initialValue = '', onInput, icon, ...props}: TextFieldProps) {
+export default function TextField({label, labelFor = '', initialValue = '', onInput, icon, iconPosition = 'left', disabled = false, ...props}: TextFieldProps) {
 	const [value, setValue] = useState(initialValue);
 
 	function onChange (e: ChangeEvent<HTMLInputElement>) {
@@ -21,12 +23,12 @@ export default function TextField({label, labelFor = '', initialValue = '', onIn
 	}
 
 	return (
-		<S.Wrapper>
+		<S.Wrapper disabled={disabled}>
 			{ !!label && <S.Label htmlFor={labelFor}>{label}</S.Label>}
 
 			<S.InputWrapper>
-				{ !!icon && <S.Icon>{ icon }</S.Icon> }
-				<S.Input type="text" onChange={onChange} value={value} { ...props } />
+				{ !!icon && <S.Icon iconPosition={iconPosition}>{ icon }</S.Icon> }
+				<S.Input type="text" onChange={onChange} value={value} iconPosition={iconPosition} disabled={disabled} { ...props } />
 			</S.InputWrapper>
 		</S.Wrapper>
 	);

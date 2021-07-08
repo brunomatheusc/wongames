@@ -30,6 +30,12 @@ describe('<TextField />', () => {
 		expect(screen.getByTestId('icon')).toBeInTheDocument();
 	});
 
+	it('should render with icon on the right side', () => {
+		renderWithTheme(<TextField icon={<Email data-testid="icon" />} iconPosition="right" />);
+
+		expect(screen.getByTestId('icon').parentElement).toHaveStyle({ order: 1 });
+	});
+
 	it('should change its value when typing', async () => {
 		const onInput = jest.fn();
 
@@ -45,6 +51,24 @@ describe('<TextField />', () => {
 		})
 
 		expect(onInput).toHaveBeenCalledWith(text);
+	});
+
+	it('should not change its value when disabled', async () => {
+		const onInput = jest.fn();
+
+		renderWithTheme(<TextField onInput={onInput} label="TextField" labelFor="TextField" id="TextField" disabled />);
+
+		const input = screen.getByRole('textbox');
+		expect(input).toBeDisabled();
+
+		const text = 'This is my new text';
+		userEvent.type(input, text);
+
+		await waitFor(() => {
+			expect(input).not.toHaveValue(text);
+		});
+
+		expect(input).not.toHaveBeenCalled();
 	});
 
 	it('should be accessible by tab', () => {
