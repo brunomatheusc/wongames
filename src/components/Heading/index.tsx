@@ -9,7 +9,7 @@ export type HeadingProps = {
 	lineLeft?: boolean;
 	lineBottom?: boolean;
 	lineColor?: LineColors;
-	size?: 'small' | 'medium';
+	size?: 'small' | 'medium' | 'huge';
 };
 
 export default function Heading({ children, color = 'white', lineLeft = false, lineBottom = false, lineColor = 'primary', size = 'small' }: HeadingProps) {
