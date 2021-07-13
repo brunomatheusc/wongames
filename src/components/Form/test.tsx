@@ -1,4 +1,3 @@
-import { screen } from '@testing-library/react';
 import { renderWithTheme } from 'utils/test/helpers';
 
 import { FormLink, FormWrapper } from '.';
