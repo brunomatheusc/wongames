@@ -5,9 +5,8 @@ export const Wrapper = styled.menu`
 	${({ theme }) => css`
 		display: flex;
 		align-items: center;
-		justify-content: space-between;
 		padding: ${theme.spacings.small} 0;
-		position: relative;
+		/* position: relative; */
 	`}
 `;
 
@@ -132,6 +131,8 @@ export const MenuFull = styled.nav<MenuFullProps>`
 		opacity: ${isOpen ? 1 : 0};
 		pointer-events: ${isOpen ? 'all' : 'none'};
 
+		z-index: ${theme.layers.alwaysOnTop};
+
 		> svg {
 			position: absolute;
 			top: 0;
@@ -159,7 +160,6 @@ export const MenuFull = styled.nav<MenuFullProps>`
 			transform: ${isOpen ? 'translateY(0)' : 'translateY(3rem)'};
 			transition: transform 0.3s ease-in-out;
 		}
-
 
 		${RegisterBox} {
 			transform: ${isOpen ? 'translateY(0)' : 'translateY(3rem)'};

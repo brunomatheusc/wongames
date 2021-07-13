@@ -1,11 +1,13 @@
-import * as S from './styles';
+import { useState } from 'react';
+import Link from 'next/link';
 import { MdShoppingCart as ShoppingCartIcon, MdSearch as SearchIcon, MdClose as CloseIcon } from 'react-icons/md';
 import { RiMenu2Fill as MenuIcon } from 'react-icons/ri';
 
 import Logo from '../../components/Logo';
-import { useState } from 'react';
 import Button from 'components/Button';
 import MediaMatch from 'components/MediaMatch';
+
+import * as S from './styles';
 
 export type MenuProps = {
 	username?: string;
@@ -44,7 +46,9 @@ export default function Menu({ username }: MenuProps) {
 
 			{ !username &&
 				<MediaMatch greaterThan="medium">
-					<Button>Sign in</Button>
+					<Link href="/sign-in" passHref>
+						<Button as="a">Sign in</Button>
+					</Link>
 				</MediaMatch>
 			}
 			</S.MenuGroup>
@@ -66,11 +70,15 @@ export default function Menu({ username }: MenuProps) {
 
 				{ !username &&
 				<S.RegisterBox>
-					<Button fullWidth size="large">Login now</Button>
+					<Link href="/sign-in" passHref>
+						<Button fullWidth size="large" as="a">Sign In</Button>
+					</Link>
 
 					<span>or</span>
 
-					<S.CreateAccount href="#" title="Sign up">Sign Up</S.CreateAccount>
+					<Link href="/sign-up" passHref>
+						<S.CreateAccount title="Sign up">Sign Up</S.CreateAccount>
+					</Link>
 				</S.RegisterBox>
 				}
 			</S.MenuFull>
