@@ -1,12 +1,11 @@
 import { Container } from 'components/Container';
 
 import Footer from 'components/Footer';
-import Heading from 'components/Heading';
 import Menu from 'components/Menu';
 import BannerSlider from 'components/BannerSlider';
-import GameCardSlider from 'components/GameCardSlider';
 
-import Highlight, { HighlightProps } from 'components/Highlight';
+import { HighlightProps } from 'components/Highlight';
+import Showcase from 'components/Showcase';
 
 import { BannerProps } from 'components/Banner';
 import { GameCardProps } from 'components/GameCard';
@@ -37,36 +36,18 @@ export default function Home({ banners, newGames, mostPopularGames, mostPopularH
 			</Container>
 
 			<S.SectionNews>
-				<Container>
-					<Heading color="black" lineLeft lineColor="secondary">News</Heading>
-
-					<GameCardSlider items={newGames} color="black" />
-				</Container>
+				<Showcase title="News" games={newGames} />
 			</S.SectionNews>
 
-			<Container>
-				<S.SectionMostPopular>
-					<Heading lineLeft lineColor="secondary">Most Popular</Heading>
+			<Showcase title="Most Popular" games={mostPopularGames} highlight={mostPopularHighlight} />
 
-					<Highlight { ...mostPopularHighlight } />
-					<GameCardSlider items={mostPopularGames} />
-				</S.SectionMostPopular>
+			<S.SectionUpcoming>
+				<Showcase title="Upcoming" games={upcomingGames} />
 
-				<S.SectionUpcoming>
-					<Heading lineLeft lineColor="secondary">Upcoming</Heading>
+				<Showcase games={upcomingMoreGames} highlight={upcomingHighlight} />
+			</S.SectionUpcoming>
 
-					<GameCardSlider items={upcomingGames} />
-					<Highlight { ...upcomingHighlight } />
-					<GameCardSlider items={upcomingMoreGames} />
-				</S.SectionUpcoming>
-
-				<S.SectionFreeGames>
-					<Heading lineLeft lineColor="secondary">Free Games</Heading>
-
-					<Highlight { ...freeHighlight } />
-					<GameCardSlider items={freeGames} />
-				</S.SectionFreeGames>
-			</Container>
+			<Showcase title="Free games" games={freeGames} highlight={freeHighlight} />
 
 			<S.SectionFooter>
 				<Container>
