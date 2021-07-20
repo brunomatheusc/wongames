@@ -24,11 +24,7 @@ export const Content = styled.div`
 	`}
 `;
 
-export const Block = styled.div`
-	${({ theme }) => css`
-
-	`}
-`;
+export const Block = styled.div``;
 
 export const Title = styled.h3`
 	${({ theme }) => css`
@@ -43,5 +39,17 @@ export const Description = styled.p`
 		font-size: ${theme.font.sizes.medium};
 		font-weight: ${theme.font.bold};
 		color: ${theme.colors.white};
+	`}
+`;
+
+export const IconsWrapper = styled.div`
+	${({ theme }) => css`
+		color: ${theme.colors.white};
+	`}
+`;
+
+export const Icon = styled.span`
+	${({ theme }) => css`
+		margin-right: ${theme.spacings.xxsmall};
 	`}
 `;

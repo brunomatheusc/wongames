@@ -1,8 +1,22 @@
+import { FaApple, FaWindows, FaLinux } from 'react-icons/fa';
+
 import Heading from 'components/Heading';
 import MediaMatch from 'components/MediaMatch';
 import * as S from './styles';
 
-export default function GameDetails() {
+type Platform = 'windows' | 'linux' | 'mac';
+
+export type GameDetailsProps = {
+	platforms: Platform[];
+}
+
+export default function GameDetails({ platforms }: GameDetailsProps) {
+	const platformIcons = {
+		linux: <FaLinux title="Linux" size={18} />,
+		windows: <FaWindows title="Linux" size={18} />,
+		mac: <FaApple title="Linux" size={18} />,
+	};
+
 	return (
 		<S.Wrapper>
 			<MediaMatch greaterThan="small">
@@ -16,8 +30,18 @@ export default function GameDetails() {
 				</S.Block>
 
 				<S.Block>
-					<S.Title>Platforms</S.Title>
+					<S.Title>Release Date</S.Title>
 					<S.Description>Nov 16, 2019</S.Description>
+				</S.Block>
+
+				<S.Block>
+					<S.Title>Platforms</S.Title>
+
+					<S.IconsWrapper>
+					{ platforms.map((icon: Platform) => (
+						<S.Icon key={icon}>{platformIcons[icon]}</S.Icon>
+					))}
+					</S.IconsWrapper>
 				</S.Block>
 
 				<S.Block>
