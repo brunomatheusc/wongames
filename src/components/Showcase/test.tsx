@@ -1,3 +1,4 @@
+import '../../../.jest/match-media-mock';
 import { screen } from '@testing-library/react';
 import { renderWithTheme } from 'utils/test/helpers';
 
@@ -14,7 +15,7 @@ const props = {
 
 describe('<Showcase />', () => {
 	it('should render full showcase', () => {
-		renderWithTheme(<Showcase />);
+		renderWithTheme(<Showcase { ...props } />);
 
 		expect(screen.getByRole('heading', { name: /most popular/i })).toBeInTheDocument();
 		expect(screen.getByRole('heading', { name: highlightMock.title })).toBeInTheDocument();
@@ -38,7 +39,7 @@ describe('<Showcase />', () => {
 	});
 
 	it('should render without games', () => {
-		renderWithTheme(<Showcase games={props.games} title={props.title} />);
+		renderWithTheme(<Showcase highlight={props.highlight} title={props.title} />);
 
 		expect(screen.getByRole('heading', { name: /most popular/i })).toBeInTheDocument();
 		expect(screen.getByRole('heading', { name: highlightMock.title })).toBeInTheDocument();

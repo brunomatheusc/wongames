@@ -1,4 +1,4 @@
-import 'match-media-mock';
+import '../../../.jest/match-media-mock';
 import { fireEvent, screen } from '@testing-library/react';
 
 import Gallery from '.';
@@ -15,7 +15,7 @@ describe('<Gallery />', () => {
 		expect(screen.getByRole('button', { name: `Thumb - ${mockItems[1].label}` })).toHaveAttribute('src', mockItems[1].src);
 	});
 
-	it('should handle open/close modal', () => {
+	it('should handle open modal', () => {
 		const mockItems = items.slice(0, 2);
 		renderWithTheme(<Gallery items={mockItems} />);
 
@@ -27,6 +27,16 @@ describe('<Gallery />', () => {
 		fireEvent.click(screen.getByRole('button', { name: `Thumb - ${mockItems[0].label}` }));
 		expect(modal.getAttribute('aria-hidden')).toBe('false');
 		expect(modal).toHaveStyle({ opacity: 1 });
+	});
+
+	it('should open modal with selected image', async () => {
+		const mockItems = items.slice(0, 2);
+		renderWithTheme(<Gallery items={mockItems} />);
+
+		fireEvent.click(screen.getByRole('button', { name: `Thumb - ${mockItems[1].label}` }));
+
+		const img = await screen.findByRole('img', { name: mockItems[1].label });
+		expect(img.parentElement?.parentElement).toHaveClass('slick-active');
 	});
 
 	it('should handle close modal when overlay or button click', () => {
