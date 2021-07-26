@@ -1,3 +1,5 @@
+import { GameDetailsProps } from ".";
+
 export default {
 	developer: 'Different Tales',
 	releaseDate: '2020-11-21T23:00:00',
@@ -5,4 +7,4 @@ export default {
 	publisher: 'Walkabout',
 	rating: 'BR0',
 	genres: ['Role-playing']
-};
+} as GameDetailsProps;
