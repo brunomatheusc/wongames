@@ -13,7 +13,7 @@ export type GameDetailsProps = {
 	developer: string;
 	releaseDate: string;
 	publisher: string;
-	rating: string;
+	rating: Rating;
 	genres: string[];
 }
 
@@ -59,7 +59,7 @@ export default function GameDetails({ developer, platforms, releaseDate, publish
 
 				<S.Block>
 					<S.Title>Publisher</S.Title>
-					<S.Description>2k</S.Description>
+					<S.Description>{publisher}</S.Description>
 				</S.Block>
 
 				<S.Block>

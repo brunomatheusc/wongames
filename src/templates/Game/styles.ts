@@ -48,3 +48,34 @@ const Section = styled(Container).attrs({ as: 'section'})`
 `;
 
 export const SectionGameInfo = styled(Section)``;
+
+export const SectionGallery = styled(Section)`
+	display: none;
+
+	${media.greaterThan('medium')`
+		display: block;
+	`}
+`;
+
+export const SectionDescription = styled(Section)`
+	${({ theme }) => css`
+		.description__copyrights {
+			color: ${theme.colors.gray};
+			font-size: ${theme.font.sizes.xsmall};
+			margin-top: ${theme.spacings.medium};
+		}
+	`}
+`;
+
+export const SectionGameDetails = styled(Section)`
+	${({ theme }) => css`
+		> div {
+			padding-bottom: ${theme.spacings.xlarge};
+			border-bottom: 0.1rem solid rgba(181, 181, 181, 0.3);
+
+			${media.greaterThan('medium')`
+				padding-bottom: calc(${theme.spacings.xxlarge} * 2);
+			`}
+		}
+	`}
+`;

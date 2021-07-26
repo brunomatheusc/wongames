@@ -45,14 +45,26 @@ describe('<GameDetails />', () => {
 		expect(screen.getByText(/free/i)).toBeInTheDocument();
 	});
 
+	it('should render the publisher', () => {
+		renderWithTheme(<GameDetails {...props} />);
+
+		expect(screen.getByText(props.publisher)).toBeInTheDocument();
+	});
+
+	it('should render developer', () => {
+		renderWithTheme(<GameDetails {...props} />);
+
+		expect(screen.getByText(props.developer)).toBeInTheDocument();
+	});
+
 	it('should render 18+ rating when BR18', () => {
-		renderWithTheme(<GameDetails {...props} rating="18+" />);
+		renderWithTheme(<GameDetails {...props} rating="BR18" />);
 
 		expect(screen.getByText(/18\+/i)).toBeInTheDocument();
 	});
 
 	it('should render a list of genres', () => {
-		renderWithTheme(<GameDetails {...props} rating="18+" />);
+		renderWithTheme(<GameDetails {...props} rating="BR18" />);
 		const { genres } = props;
 
 		expect(screen.getByText(genres.join(' / '))).toBeInTheDocument();
