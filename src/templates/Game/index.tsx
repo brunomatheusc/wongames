@@ -1,3 +1,4 @@
+import { Divider } from 'components/Divider';
 import Gallery, { GalleryImageProps } from 'components/Gallery';
 import { GameCardProps } from 'components/GameCard';
 import GameDetails, { GameDetailsProps } from 'components/GameDetails';
@@ -40,6 +41,8 @@ export default function Game({ cover, gameInfo, gallery, description, details, u
 
 				<S.SectionGameDetails>
 					<GameDetails {...details} />
+
+					<Divider />
 				</S.SectionGameDetails>
 
 				<Showcase title="Upcoming" games={upcommingGames} highlight={upcommingHighlight} />
