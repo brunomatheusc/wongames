@@ -1,5 +1,12 @@
 import { Story, Meta } from '@storybook/react/types-6-0';
-import GameItem, { GameItemProps } from '.';
+import GameItem, { GameItemProps, PaymentInfoProps } from '.';
+
+const paymentInfo: PaymentInfoProps = {
+	flag: 'mastercard',
+	img:'/img/cards/mastercard.png',
+	number: '**** **** **** 4236',
+	purchaseDate: 'Purchase made on 07/20/2020 at 8:32',
+};
 
 export default {
 	title: 'GameItem',
@@ -7,10 +14,10 @@ export default {
 	args: {
 		img: 'https://source.unsplash.com/user/willianjusten/151x70',
 		title: 'Red Dead Redemption 2',
-		price: 'R$ 215,00'
+		price: 'R$ 215,00',
 	}
 } as Meta;
 
 export const Basic: Story<GameItemProps> = (args) => <GameItem {...args}/>;
 
-export const WithPayment: Story<GameItemProps> = (args) => <GameItem {...args} downloadLink="https://wongames.com/game/download" />;
+export const WithPayment: Story<GameItemProps> = (args) => <GameItem {...args} downloadLink="https://wongames.com/game/download" paymentInfo={paymentInfo} />;

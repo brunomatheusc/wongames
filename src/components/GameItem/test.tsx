@@ -1,7 +1,7 @@
 import { screen } from '@testing-library/react';
 import { renderWithTheme } from 'utils/test/helpers';
 
-import GameItem, { GameItemProps } from '.';
+import GameItem, { GameItemProps, PaymentInfoProps } from '.';
 
 const props: GameItemProps = {
 	img: 'https://source.unsplash.com/user/willianjusten/151x70',
@@ -24,5 +24,20 @@ describe('<GameItem />', () => {
 		renderWithTheme(<GameItem {...props} downloadLink={downloadLink} />);
 
 		expect(screen.getByRole('link', { name: `Get ${props.title} here`})).toHaveAttribute('href', downloadLink);
+	});
+
+	it('should render payment info', () => {
+		const paymentInfo: PaymentInfoProps = {
+			flag: 'mastercard',
+			img:'/img/cards/mastercard.png',
+			number: '**** **** **** 4236',
+			purchaseDate: 'Purchase made on 07/20/2020 at 8:32',
+		};
+
+		renderWithTheme(<GameItem {...props} paymentInfo={paymentInfo} />);
+
+		expect(screen.getByRole('img', { name: paymentInfo.flag })).toHaveAttribute('src', paymentInfo.img);
+		expect(screen.getByText(paymentInfo.number)).toBeInTheDocument();
+		expect(screen.getByText(paymentInfo.purchaseDate)).toBeInTheDocument();
 	});
 });
