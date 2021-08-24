@@ -64,7 +64,7 @@ describe('<Game />', () => {
 		expect(screen.getByTestId('Mock Gallery')).toBeInTheDocument();
 		expect(screen.getByTestId('Mock GameInfo')).toBeInTheDocument();
 		expect(screen.getByTestId('Mock GameDetails')).toBeInTheDocument();
-		expect(screen.getByTestId('Mock Showcase')).toHaveLength(2);
+		expect(screen.getAllByTestId('Mock Showcase')).toHaveLength(2);
 		expect(screen.getByText(/content/i)).toBeInTheDocument();
 	});
 
@@ -84,6 +84,6 @@ describe('<Game />', () => {
 	it('should render cover image', () => {
 		renderWithTheme(<Game {...props} />);
 
-		expect(screen.getByRole('img', { name: /cover/i })).toHaveStyle({ backgroundImage: 'url(bg-image.jpg)', height: '39.5rem' })
+		expect(screen.getByRole('image', { name: /cover/i })).toHaveStyle({ backgroundImage: 'url(bg-image.jpg)', height: '39.5rem' })
 	});
 });
