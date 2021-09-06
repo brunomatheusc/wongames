@@ -7,7 +7,7 @@ import TextField from '.';
 
 describe('<TextField />', () => {
 	it('should render with label', () => {
-		renderWithTheme(<TextField label="Label" labelFor="Field" id="Field" />);
+		renderWithTheme(<TextField label="Label" name="Field" id="Field" />);
 
 		expect(screen.getByLabelText('Label')).toBeInTheDocument();
 	});
@@ -39,7 +39,7 @@ describe('<TextField />', () => {
 	it('should change its value when typing', async () => {
 		const onInput = jest.fn();
 
-		renderWithTheme(<TextField onInput={onInput} label="TextField" labelFor="TextField" id="TextField" />);
+		renderWithTheme(<TextField onInput={onInput} label="TextField" name="TextField" />);
 
 		const input = screen.getByRole('textbox');
 		const text = 'This is my new text';
@@ -56,7 +56,7 @@ describe('<TextField />', () => {
 	it('should not change its value when disabled', async () => {
 		const onInput = jest.fn();
 
-		renderWithTheme(<TextField onInput={onInput} label="TextField" labelFor="TextField" id="TextField" disabled />);
+		renderWithTheme(<TextField onInput={onInput} label="TextField" name="TextField" disabled />);
 
 		const input = screen.getByRole('textbox');
 		expect(input).toBeDisabled();
@@ -72,7 +72,7 @@ describe('<TextField />', () => {
 	});
 
 	it('should be accessible by tab', () => {
-		renderWithTheme(<TextField label="TextField" labelFor="TextField" id="TextField" />);
+		renderWithTheme(<TextField label="TextField" name="TextField" />);
 
 		const input = screen.getByLabelText('TextField');
 		expect(document.body).toHaveFocus();

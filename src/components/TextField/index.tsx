@@ -7,13 +7,12 @@ export type TextFieldProps = {
 	icon?: ReactNode;
 	iconPosition?: 'left' | 'right';
 	label?: string;
-	labelFor?: string;
 	labelColor?: 'white' | 'black';
 	onInput?: (value?: string) => void;
 	initialValue?: string;
 } & InputHTMLAttributes<HTMLInputElement>;
 
-export default function TextField({ error, label, labelFor = '', initialValue = '', onInput, icon, iconPosition = 'left', disabled = false, ...props}: TextFieldProps) {
+export default function TextField({ error, label, initialValue = '', onInput, icon, iconPosition = 'left', disabled = false, name, ...props}: TextFieldProps) {
 	const [value, setValue] = useState(initialValue);
 
 	function onChange (e: ChangeEvent<HTMLInputElement>) {
@@ -25,11 +24,11 @@ export default function TextField({ error, label, labelFor = '', initialValue = 
 
 	return (
 		<S.Wrapper disabled={disabled} error={!!error}>
-			{ !!label && <S.Label htmlFor={labelFor}>{label}</S.Label>}
+			{ !!label && <S.Label htmlFor={name}>{label}</S.Label>}
 
 			<S.InputWrapper>
 				{ !!icon && <S.Icon iconPosition={iconPosition}>{ icon }</S.Icon> }
-				<S.Input type="text" onChange={onChange} value={value} iconPosition={iconPosition} disabled={disabled} { ...props } />
+				<S.Input type="text" onChange={onChange} value={value} iconPosition={iconPosition} disabled={disabled} {...(label ? { id: name } : {})} { ...props } />
 			</S.InputWrapper>
 
 			{ !! error && <S.Error>{ error }</S.Error> }
