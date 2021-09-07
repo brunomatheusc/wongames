@@ -42,7 +42,7 @@ export const Link = styled.a<LinkProps>`
 		transition: background, color, ${theme.transition.default};
 
 		${!isActive && linkModifiers.default(theme)};
-		${isActive && linkModifiers.default(theme)};
+		${isActive && linkModifiers.active(theme)};
 
 		&:hover {
 			background: ${theme.colors.primary};
