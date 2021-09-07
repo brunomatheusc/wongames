@@ -1,8 +1,10 @@
 import React from 'react'
 import Profile from 'templates/Profile'
 
-export default function Orders() {
+export default function ProfileOrders() {
 	return (
-		<Profile />
+		<Profile>
+
+		</Profile>
 	)
 }
