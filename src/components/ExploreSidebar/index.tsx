@@ -1,4 +1,4 @@
-import { Fragment } from 'react';
+import { Fragment, useState } from 'react';
 import Button from 'components/Button';
 import Checkbox from 'components/Checkbox';
 import Heading from 'components/Heading';
@@ -18,11 +18,28 @@ type Field = {
 	name: string;
 }
 
-export type ExploreSidebarProps = {
-	items: ItemProps[];
+type Values = {
+	[field: string]: boolean | string;
 }
 
-export default function ExploreSidebar({ items }: ExploreSidebarProps) {
+export type ExploreSidebarProps = {
+	items: ItemProps[];
+	initialValues?: Values;
+	onFilter: (values: Values) => void;
+}
+
+export default function ExploreSidebar({ items, initialValues = {}, onFilter }: ExploreSidebarProps) {
+	const [values, setValues] = useState(initialValues);
+
+	function handleFilter() {
+		onFilter(values);
+	}
+
+	function handleChangeValues(name: string, value: boolean | string) {
+		console.log({name, value});
+		setValues((s) => ({...s, [name]: value}));
+	}
+
 	return (
 		<S.Wrapper>
 			{ items.map((item) => (
@@ -30,16 +47,34 @@ export default function ExploreSidebar({ items }: ExploreSidebarProps) {
 				<Heading lineBottom lineColor="secondary" size="small">{item.title}</Heading>
 
 				{item.type === 'checkbox' && (
-					item.fields.map((field) => <Checkbox key={field.name} name={field.name} label={field.label} labelFor={field.name} />)
+					item.fields.map((field) =>
+					<Checkbox
+						key={field.name}
+						name={field.name}
+						label={field.label}
+						labelFor={field.name}
+						isChecked={!!values[field.name]}
+						onCheck={(v) => handleChangeValues(field.name, v)}
+					/>)
 				)}
 
 				{item.type === 'radio' && (
-					item.fields.map((field) => <Radio key={field.name} id={field.name} name={item.name} label={field.label} labelFor={field.name} value={field.name} />)
+					item.fields.map((field) =>
+						<Radio
+							key={field.name}
+							id={field.name}
+							name={item.name}
+							label={field.label}
+							labelFor={field.name}
+							value={field.name}
+							defaultChecked={field.name === values[item.name]}
+							onChange={() => handleChangeValues(item.name, field.name)}
+						/>)
 				)}
 			</Fragment>
 			))}
 
-			<Button fullWidth size="medium">Filter</Button>
+			<Button fullWidth size="medium" onClick={handleFilter}>Filter</Button>
 		</S.Wrapper>
 	);
 };
