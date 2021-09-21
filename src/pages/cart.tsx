@@ -13,7 +13,7 @@ export async function getServerSideProps() {
 	return {
 		props: {
 			cards: cardsMock,
-			items: [],
+			items: itemsMock,
 			total: 'R$ 430,00',
 			recommendedGames: gamesMock.slice(0, 5),
 			recommendedHighlight: highlightMock,
