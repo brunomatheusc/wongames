@@ -13,4 +13,11 @@ describe('<CartList />', () => {
 		expect(screen.getAllByRole('heading')).toHaveLength(mockItems.length);
 		expect(screen.getByText(total)).toHaveStyle({ color: '#F231A5' });
 	});
+
+	it('should render the CartList', () => {
+		const total = "R$ 314,00";
+		renderWithTheme(<CartList items={mockItems} total={total} hasButton />);
+
+		expect(screen.getByText(/buy it now/i)).toBeInTheDocument();
+	});
 });
