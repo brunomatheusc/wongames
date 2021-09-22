@@ -16,7 +16,7 @@ export type CartProps = {
 	recommendedHighlight: HighlightProps;
 } & CartListProps & Pick<PaymentOptionsProps, 'cards'>;
 
-export default function Cart({ recommendedGames, recommendedHighlight, items, total, cards }: CartProps) {
+export default function Cart({ recommendedGames, recommendedHighlight, items = [], total, cards }: CartProps) {
 	const handlePayment = () => ({});
 
 	return (
