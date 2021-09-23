@@ -15,8 +15,11 @@ export const IconWrapper = styled.div`
 	${({ theme }) => css`
 		color: ${theme.colors.white};
 
-		width: 2.4rem;
-		height: 2.4rem;
+		> svg {
+			width: 2.4rem;
+			height: 2.4rem;
+		}
+
 
 		cursor: pointer;
 	`}
