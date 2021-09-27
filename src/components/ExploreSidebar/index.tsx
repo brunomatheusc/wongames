@@ -55,7 +55,7 @@ export default function ExploreSidebar({ items, initialValues = {}, onFilter }: 
 
 			<S.Content>
 			{ items.map((item) => (
-				<S.Items>
+				<S.Items key={item.name}>
 					<Heading lineBottom lineColor="secondary" size="small">{item.title}</Heading>
 
 					{item.type === 'checkbox' && (
