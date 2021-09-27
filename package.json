@@ -9,6 +9,10 @@
 		"start": "next start",
 		"test": "jest",
 		"test:watch": "yarn test --watch",
+		"schema:download": "apollo client:download-schema --endpoint=http://localhost:1337/graphql schema-temp.gql",
+		"schema:convert": "node convertToNonNull.js",
+		"codegen": "apollo codegen:generate --target typescript --excludes=node_modules/ --includes=src/graphql/**/*.ts --localSchemaFile schema.gql --tagName=gql --outputFlat src/graphql/generated",
+		"types:generate": "yarn schema:download && yarn schema:convert && yarn codegen",
 		"typecheck": "tsc --project tsconfig.json --noEmit",
 		"storybook": "start-storybook -s ./public -p 6006",
 		"build-storybook": "build-storybook -s ./public"
@@ -41,6 +45,7 @@
 		"@types/react": "^17.0.3",
 		"@types/react-slick": "^0.23.4",
 		"@types/styled-components": "^5.1.9",
+		"apollo": "^2.33.6",
 		"babel-loader": "^8.2.2",
 		"babel-plugin-react-html-attrs": "^3.0.5",
 		"babel-plugin-styled-components": "^1.12.0",
