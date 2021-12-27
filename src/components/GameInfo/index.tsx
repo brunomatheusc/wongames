@@ -8,7 +8,7 @@ import * as S from './styles';
 export type GameInfoProps = {
 	title: string;
 	description: string;
-	price: string;
+	price: number;
 };
 
 export default function GameInfo({ title, description, price }: GameInfoProps) {
@@ -16,7 +16,7 @@ export default function GameInfo({ title, description, price }: GameInfoProps) {
 		<S.Wrapper>
 			<Heading color="black" lineBottom>{ title }</Heading>
 
-			<Ribbon color="secondary">{ `$${price}`}</Ribbon>
+			<Ribbon color="secondary">{ `${new Intl.NumberFormat('en', { style: 'currency', currency: 'USD' }).format(price)}`}</Ribbon>
 
 			<S.Description>{ description }</S.Description>
 
