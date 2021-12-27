@@ -20,7 +20,7 @@ export async function getStaticProps() {
 		slug,
 		developer: developers[0].name,
 		img: `http://localhost:1337${cover!.url}`,
-		price: new Intl.NumberFormat('en', { style: 'currency', currency: 'USD' }).format(price)
+		price
 	}));
 
 	return {
