@@ -1,35 +1,41 @@
 import Home, { HomeTemplateProps } from "templates/Home";
 
-import bannersMock from 'components/BannerSlider/mock';
 import gamesMock from 'components/GameCardSlider/mock';
 import highlightMock from 'components/Highlight/mock';
-import { useQuery, gql } from "@apollo/client";
+
+import { QueryHome } from "graphql/generated/QueryHome";
+import { QUERY_HOME } from "graphql/queries/home";
+
 import { initializeApollo } from "utils/apollo";
 
-const GET_GAMES = gql`
-	query getGames {
-		games {
-			name
-		}
-	}
-`;
-
 export default function Index(props: HomeTemplateProps) {
-	return (
-		<Home {...props} />
-	);
+	return <Home {...props} />;
 }
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
 	const apolloClient = initializeApollo();
 
-	const { data } = await apolloClient.query({ query: GET_GAMES });
+	const { data: { banners } } = await apolloClient.query<QueryHome>({ query: QUERY_HOME });
 
 	return {
 		props: {
-			data,
-			initialApolloState: apolloClient.cache.extract(),
-			banners: bannersMock,
+			revalidate: 60,
+			banners: banners.map(({ image, title, subtitle, button, ribbon }) => {
+				return {
+					img: `http://localhost:1337${image?.url}`,
+					title: title,
+					subtitle: subtitle,
+					...(button && {
+						buttonLabel: button.label,
+						buttonLink: button.link,
+					}),
+					...(ribbon && {
+						ribbon: ribbon.text,
+						ribbonColor: ribbon.color,
+						ribbonSize: ribbon.size
+					})
+				};
+			}),
 			newGames: gamesMock,
 			mostPopularHighlight: highlightMock,
 			mostPopularGames: gamesMock,
