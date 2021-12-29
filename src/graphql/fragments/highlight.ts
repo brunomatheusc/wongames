@@ -12,5 +12,6 @@ export const HighlightFragment = gql`
 		}
 		buttonLabel
 		buttonLink
+		alignment
 	}
 `;

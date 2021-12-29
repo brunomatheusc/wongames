@@ -18,9 +18,26 @@ export type HomeTemplateProps = {
 	upcomingHighlight: HighlightProps;
 	freeGames: GameCardProps[];
 	freeHighlight: HighlightProps;
+	newGamesTitle: string;
+	mostPopularGamesTitle: string;
+	upcomingGamesTitle: string;
+	freeGamesTitle: string;
 };
 
-export default function Home({ banners, newGames, mostPopularGames, mostPopularHighlight, upcomingGames, upcomingHighlight, freeGames, freeHighlight }: HomeTemplateProps) {
+export default function Home({
+	banners,
+	newGames,
+	mostPopularGames,
+	mostPopularHighlight,
+	upcomingGames,
+	upcomingHighlight,
+	freeGames,
+	freeHighlight,
+	newGamesTitle,
+	mostPopularGamesTitle,
+	upcomingGamesTitle,
+	freeGamesTitle
+}: HomeTemplateProps) {
 	return (
 		<Base>
 			<Container>
@@ -30,14 +47,14 @@ export default function Home({ banners, newGames, mostPopularGames, mostPopularH
 			</Container>
 
 			<S.SectionNews>
-				<Showcase title="News" games={newGames} color="black" />
+				<Showcase title={newGamesTitle} games={newGames} color="black" />
 			</S.SectionNews>
 
-			<Showcase title="Most Popular" games={mostPopularGames} highlight={mostPopularHighlight} />
+			<Showcase title={mostPopularGamesTitle} games={mostPopularGames} highlight={mostPopularHighlight} />
 
-			<Showcase title="Upcoming" games={upcomingGames} highlight={upcomingHighlight} />
+			<Showcase title={upcomingGamesTitle} games={upcomingGames} highlight={upcomingHighlight} />
 
-			<Showcase title="Free games" games={freeGames} highlight={freeHighlight} />
+			<Showcase title={freeGamesTitle} games={freeGames} highlight={freeHighlight} />
 		</Base>
 	);
 };

@@ -3,7 +3,7 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { ENUM_COMPONENTPAGERIBBON_COLOR, ENUM_COMPONENTPAGERIBBON_SIZE } from "./globalTypes";
+import { ENUM_COMPONENTPAGERIBBON_COLOR, ENUM_COMPONENTPAGERIBBON_SIZE, ENUM_COMPONENTPAGEHIGHLIGHT_ALIGNMENT } from "./globalTypes";
 
 // ====================================================
 // GraphQL query operation: QueryHome
@@ -111,6 +111,7 @@ export interface QueryHome_sections_newGames_highlight {
   floatImage: QueryHome_sections_newGames_highlight_floatImage | null;
   buttonLabel: string;
   buttonLink: string;
+  alignment: ENUM_COMPONENTPAGEHIGHLIGHT_ALIGNMENT | null;
 }
 
 export interface QueryHome_sections_newGames {
@@ -137,6 +138,7 @@ export interface QueryHome_sections_popularGames_highlight {
   floatImage: QueryHome_sections_popularGames_highlight_floatImage | null;
   buttonLabel: string;
   buttonLink: string;
+  alignment: ENUM_COMPONENTPAGEHIGHLIGHT_ALIGNMENT | null;
 }
 
 export interface QueryHome_sections_popularGames_games_cover {
@@ -183,6 +185,7 @@ export interface QueryHome_sections_upcomingGames_highlight {
   floatImage: QueryHome_sections_upcomingGames_highlight_floatImage | null;
   buttonLabel: string;
   buttonLink: string;
+  alignment: ENUM_COMPONENTPAGEHIGHLIGHT_ALIGNMENT | null;
 }
 
 export interface QueryHome_sections_upcomingGames {
@@ -209,6 +212,7 @@ export interface QueryHome_sections_freeGames_highlight {
   floatImage: QueryHome_sections_freeGames_highlight_floatImage | null;
   buttonLabel: string;
   buttonLink: string;
+  alignment: ENUM_COMPONENTPAGEHIGHLIGHT_ALIGNMENT | null;
 }
 
 export interface QueryHome_sections_freeGames {
