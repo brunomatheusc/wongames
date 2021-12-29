@@ -9,9 +9,11 @@ export type ShowCaseProps = {
 	title?: string;
 	highlight?: HighlightProps;
 	games?: GameCardProps[];
+	color?: 'black' | 'white';
 };
 
-export default function Showcase({ title, games, highlight }: ShowCaseProps) {
+export default function Showcase({ title, games, highlight, color = 'white' }: ShowCaseProps) {
+	console.log(color);
 	return (
 		<S.Wrapper>
 			{ !!title && (
@@ -22,7 +24,7 @@ export default function Showcase({ title, games, highlight }: ShowCaseProps) {
 
 			{ !!highlight && <Highlight {...highlight} />}
 
-			{ !!games && <GameCardSlider items={games} />}
+			{ !!games && <GameCardSlider items={games} color={color} />}
 		</S.Wrapper>
 	);
 };

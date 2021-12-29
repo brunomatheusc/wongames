@@ -31,7 +31,7 @@ export default function Home({ banners, newGames, mostPopularGames, mostPopularH
 			</Container>
 
 			<S.SectionNews>
-				<Showcase title="News" games={newGames} />
+				<Showcase title="News" games={newGames} color="black" />
 			</S.SectionNews>
 
 			<Showcase title="Most Popular" games={mostPopularGames} highlight={mostPopularHighlight} />
