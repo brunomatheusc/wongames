@@ -17,13 +17,20 @@ export type GameTemplateProps = {
 };
 
 export default function GamesTemplate({ filterItems }: GameTemplateProps) {
-	const { data, loading, error } = useQuery<QueryGames, QueryGamesVariables>(QUERY_GAMES, { variables: { limit: 15 }});
+	const { data, loading, error, fetchMore } = useQuery<QueryGames, QueryGamesVariables>(QUERY_GAMES, { variables: { limit: 15 }});
 
 	function handleFilter() {
 		return;
 	}
 
 	function handleShowMore() {
+		fetchMore({
+			variables: {
+				limit: 15,
+				start: data?.games.length
+			}
+		});
+
 		return;
 	}
 

@@ -15,21 +15,13 @@ export async function getStaticProps() {
 
 	const { data } = await apolloClient.query<QueryGames, QueryGamesVariables>({
 		query: QUERY_GAMES,
-		variables: { limit: 9 }
+		variables: { limit: 15 }
 	});
-
-	const games = data.games.map(({ name, slug, developers, cover, price }) => ({
-		title: name,
-		slug,
-		developer: developers[0].name,
-		img: `http://localhost:1337${cover!.url}`,
-		price
-	}));
 
 	return {
 		props: {
 			revalidate: 60,
-			games,
+			initialApolloState: apolloClient.cache.extract(),
 			filterItems: filterItemsMock,
 		}
 	};
