@@ -1,4 +1,6 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import _ from 'lodash';
+import { ParsedUrlQueryInput } from 'querystring';
 import { Close, FilterList } from '@styled-icons/material-outlined';
 
 import Button from 'components/Button';
@@ -20,9 +22,7 @@ type Field = {
 	name: string;
 }
 
-type Values = {
-	[field: string]: boolean | string;
-}
+type Values = ParsedUrlQueryInput;
 
 export type ExploreSidebarProps = {
 	items: ItemProps[];
@@ -34,14 +34,21 @@ export default function ExploreSidebar({ items, initialValues = {}, onFilter }: 
 	const [values, setValues] = useState(initialValues);
 	const [isOpen, setIsOpen] = useState(false);
 
-	function handleFilter() {
+	useEffect(() => {
 		onFilter(values);
+	}, [values]);
+
+	function handleFilterMenu() {
 		setIsOpen(false);
 	}
 
-	function handleChangeValues(name: string, value: boolean | string) {
-		console.log({name, value});
+	function handleRadio(name: string, value: boolean | string) {
 		setValues((s) => ({...s, [name]: value}));
+	}
+
+	function handleCheckbox(name: string, value: string) {
+		const currentList = (values[name] as []) || [];
+		setValues((s) => ({ ...s, [name]: _.xor(currentList, [value])}));
 	}
 
 	return (
@@ -65,8 +72,8 @@ export default function ExploreSidebar({ items, initialValues = {}, onFilter }: 
 							name={field.name}
 							label={field.label}
 							labelFor={field.name}
-							isChecked={!!values[field.name]}
-							onCheck={(v) => handleChangeValues(field.name, v)}
+							isChecked={!!(values[item.name] as string[])?.includes(field.name)}
+							onCheck={() => handleCheckbox(item.name, field.name)}
 						/>)
 					)}
 
@@ -79,8 +86,8 @@ export default function ExploreSidebar({ items, initialValues = {}, onFilter }: 
 								label={field.label}
 								labelFor={field.name}
 								value={field.name}
-								defaultChecked={field.name === values[item.name]}
-								onChange={() => handleChangeValues(item.name, field.name)}
+								defaultChecked={String(field.name) === String(values[item.name])}
+								onChange={() => handleRadio(item.name, field.name)}
 							/>)
 					)}
 				</S.Items>
@@ -88,7 +95,7 @@ export default function ExploreSidebar({ items, initialValues = {}, onFilter }: 
 			</S.Content>
 
 			<S.Footer>
-				<Button fullWidth size="medium" onClick={handleFilter}>Filter</Button>
+				<Button fullWidth size="medium" onClick={handleFilterMenu}>Filter</Button>
 			</S.Footer>
 		</S.Wrapper>
 	);

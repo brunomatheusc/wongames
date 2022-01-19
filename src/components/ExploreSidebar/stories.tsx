@@ -8,6 +8,7 @@ export default {
 	component: ExploreSidebar,
 	args: {
 		items: mockItems,
+		onFilter: () => console.log('teste'),
 	},
 	parameters: {
 		backgrounds: {
@@ -18,4 +19,14 @@ export default {
 
 export const Basic: Story<ExploreSidebarProps> = (args) => <ExploreSidebar {...args}/>;
 
-export const WithInitialValues: Story<ExploreSidebarProps> = (args) => <ExploreSidebar {...args} initialValues={{ windows: true, sort_by: 'low-to-high' }} onFilter={() => function(){}}/>;
+export const WithInitialValues: Story<ExploreSidebarProps> = (args) =>
+	(
+		<ExploreSidebar
+			{...args}
+			initialValues={{
+				platforms: ['windows', 'linux'],
+				sort_by: 'low-to-high'
+			}}
+			onFilter={() => function(){}}
+		/>
+	);
