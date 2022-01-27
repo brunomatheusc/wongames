@@ -1,23 +1,34 @@
+import { useRouter } from 'next/router';
+import { ParsedUrlQueryInput } from 'querystring';
+import { KeyboardArrowDown } from '@styled-icons/material-outlined';
+
 import Base from 'templates/Base';
 
 import ExploreSidebar, { ItemProps } from 'components/ExploreSidebar';
-import GameCard, { GameCardProps } from 'components/GameCard';
+import GameCard from 'components/GameCard';
 
-import { KeyboardArrowDown } from '@styled-icons/material-outlined';
 import { useQueryGames } from 'graphql/queries/games';
+import { parseQueryStringToWhere, parseQueryStringToFilter } from 'utils/filter';
 
 import { Grid } from 'components/Grid';
 import * as S from './styles';
 
 export type GameTemplateProps = {
-	games?: GameCardProps[];
 	filterItems: ItemProps[];
 };
 
 export default function GamesTemplate({ filterItems }: GameTemplateProps) {
-	const { data, loading, error, fetchMore } = useQueryGames({ variables: { limit: 15 }});
+	const { push, query } = useRouter();
+	const { data, loading, error, fetchMore } = useQueryGames({
+		variables: {
+			limit: 15,
+			where: parseQueryStringToWhere({ queryString: query, filterItems }),
+			sort: query.sort as string | null,
+		}
+	});
 
-	function handleFilter() {
+	function handleFilter(items: ParsedUrlQueryInput) {
+		push({ pathname: '/games', query: items });
 		return;
 	}
 
@@ -35,7 +46,7 @@ export default function GamesTemplate({ filterItems }: GameTemplateProps) {
 	return (
 		<Base>
 			<S.Main>
-				<ExploreSidebar items={filterItems} onFilter={handleFilter} />
+				<ExploreSidebar initialValues={parseQueryStringToFilter({ queryString: query, filterItems })} items={filterItems} onFilter={handleFilter} />
 
 				<section>
 					<Grid>
