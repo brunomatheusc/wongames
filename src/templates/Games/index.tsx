@@ -29,6 +29,8 @@ export default function GamesTemplate({ filterItems }: GameTemplateProps) {
 		}
 	});
 
+	const hasMoreGames = (data?.games.length || 0) < (data?.gamesConnection?.values?.length || 0);
+
 	function handleFilter(items: ParsedUrlQueryInput) {
 		push({ pathname: '/games', query: items });
 		return;
@@ -66,6 +68,7 @@ export default function GamesTemplate({ filterItems }: GameTemplateProps) {
 							))}
 						</Grid>
 
+						{ hasMoreGames && (
 						<S.ShowMore>
 						{ loading ? (
 							<S.ShowMoreLoading src="/img/dots.svg" alt="Loading more games..." />
@@ -76,6 +79,7 @@ export default function GamesTemplate({ filterItems }: GameTemplateProps) {
 							</S.ShowMoreButton>
 						)}
 						</S.ShowMore>
+						)}
 					</>
 					) : (
 						<Empty title=":(" description="We didn't find any games with this filter" hasLink />
