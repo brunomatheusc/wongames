@@ -62,7 +62,7 @@ export default [
 			},
 			{
 				label: 'MacOS',
-				name: 'macos'
+				name: 'mac'
 			}
 		]
 	},
