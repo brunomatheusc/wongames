@@ -13,7 +13,6 @@ export type ShowCaseProps = {
 };
 
 export default function Showcase({ title, games, highlight, color = 'white' }: ShowCaseProps) {
-	console.log(color);
 	return (
 		<S.Wrapper>
 			{ !!title && (

@@ -19,13 +19,14 @@ export function bannerMapper(banners: QueryHome_banners[]) {
 }
 
 export function gamesMapper(games: QueryGames_games[] | null | undefined) {
-	return games && games.map(({ name, slug, developers, cover, price }) => ({
+	return games ? games.map(({ id, name, slug, developers, cover, price }) => ({
+		id: id,
 		title: name,
 		slug,
 		developers: developers[0].name,
 		img: `http://localhost:1337${cover?.url}`,
 		price
-	}));
+	})) : [];
 }
 
 export function highlightMapper(highlight: QueryHome_sections_freeGames_highlight | null | undefined) {

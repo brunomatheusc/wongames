@@ -25,6 +25,7 @@ export const gamesMock = {
 		data: {
 			games: [
 				{
+					id: '1',
 					name: 'Sample Game',
 					slug: 'sample-game',
 					short_description: 'sample description',
@@ -51,6 +52,7 @@ export const fetchMoreMock = {
 		data: {
 			games: [
 				{
+					id: '2',
 					name: 'Fetch more Game',
 					slug: 'fetch-more',
 					short_description: 'fetch description',
