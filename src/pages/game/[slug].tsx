@@ -12,7 +12,7 @@ import { QueryGameBySlug, QueryGameBySlugVariables } from 'graphql/generated/Que
 import { GetStaticProps } from 'next';
 import { QueryRecommended } from 'graphql/generated/QueryRecommended';
 import { QUERY_RECOMMENDED } from 'graphql/queries/recommended';
-import { gamesMapper, highlightMapper } from 'utils/mapper';
+import { gamesMapper, highlightMapper } from 'utils/mappers';
 import { QueryUpcoming, QueryUpcomingVariables } from 'graphql/generated/QueryUpcoming';
 import { QUERY_UPCOMING } from 'graphql/queries/upcoming';
 

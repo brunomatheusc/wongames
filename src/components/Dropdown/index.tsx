@@ -16,6 +16,8 @@ export default function Dropdown({ title, children }: DropdownProps) {
 			<S.Content aria-hidden={!isOpen}>
 				{ children }
 			</S.Content>
+
+			<S.Overlay aria-hidden={!isOpen} onClick={() => setIsOpen(!isOpen)} />
 		</S.Wrapper>
 	);
 };

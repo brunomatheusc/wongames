@@ -5,9 +5,12 @@ export const Title = styled.div`
 		cursor: pointer;
 		color: ${theme.colors.white};
 		position: relative;
+		padding-right: 2.4rem;
+
 		display: flex;
 		align-items: center;
-		padding-right: 2.4rem;
+
+		z-index: ${theme.layers.alwaysOnTop};
 	`}
 `;
 
@@ -20,6 +23,8 @@ export const Content = styled.div`
 		margin-top: ${theme.spacings.small};
 		position: absolute;
 		right: 0;
+
+		z-index: ${theme.layers.alwaysOnTop};
 
 		&::before {
 			content: '';
@@ -47,12 +52,25 @@ const wrapperModifiers = {
 	`,
 }
 
+export const Overlay = styled.div`
+	${({ theme }) => css`
+		position: fixed;
+		top: 0;
+		bottom: 0;
+		right: 0;
+		left: 0;
+
+		background: rgba(0, 0, 0, 0.5);
+
+		z-index: ${theme.layers.overlay};
+	`}
+`;
 export const Wrapper = styled.div<{isOpen: boolean}>`
 	${({ theme, isOpen }) => css`
 		position: relative;
 		width: max-content;
 
-		${Content} {
+		${Content}, ${Overlay} {
 			transition: transform 0.2s ease-in, opacity ${theme.transition.default};
 
 			${isOpen && wrapperModifiers.open()};
