@@ -1,6 +1,6 @@
 import { ParseArgs, parseQueryStringToFilter, parseQueryStringToWhere } from ".";
 
-const filterItems: ParseArgs['filterItems'] = [
+const filterItems = [
 	{ name: 'price_lte', type: 'radio' },
 	{ name: 'platforms', type: 'checkbox' },
 	{ name: 'developers', type: 'checkbox' },

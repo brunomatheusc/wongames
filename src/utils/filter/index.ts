@@ -3,7 +3,7 @@ import { ParsedUrlQueryInput } from "querystring";
 
 export type ParseArgs = {
 	queryString: ParsedUrlQueryInput;
-	filterItems: ItemProps[];
+	filterItems: Pick<ItemProps, 'type' | 'name'>[];
 };
 
 export const parseQueryStringToWhere = ({ queryString, filterItems }: ParseArgs) => {

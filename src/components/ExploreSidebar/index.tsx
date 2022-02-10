@@ -13,7 +13,7 @@ import * as S from './styles';
 export type ItemProps = {
 	title: string;
 	name: string;
-	type: 'checkbox' | 'radio';
+	type: string;
 	fields: Field[];
 }
 

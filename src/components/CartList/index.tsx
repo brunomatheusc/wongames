@@ -1,17 +1,18 @@
 import Link from 'next/link';
 import * as S from './styles';
 
-import GameItem, { GameItemProps } from 'components/GameItem';
+import GameItem from 'components/GameItem';
 import Button from 'components/Button';
 import Empty from 'components/Empty';
+import { useCart } from 'hooks/use-cart';
 
 export type CartListProps = {
-	items?: GameItemProps[];
-	total?: string;
 	hasButton?: boolean;
 };
 
-export default function CartList({ items = [], total, hasButton = false }: CartListProps) {
+export default function CartList({ hasButton = false }: CartListProps) {
+	const { items, total } = useCart();
+
 	return (
 		<S.Wrapper isEmpty={!items.length}>
 		{!!items.length ? (

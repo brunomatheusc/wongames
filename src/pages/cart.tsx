@@ -6,7 +6,7 @@ import itemsMock from 'components/CartList/mock';
 import { initializeApollo } from "utils/apollo";
 import { QueryRecommended } from "graphql/generated/QueryRecommended";
 import { QUERY_RECOMMENDED } from "graphql/queries/recommended";
-import { gamesMapper, highlightMapper } from "utils/mapper";
+import { gamesMapper, highlightMapper } from "utils/mappers";
 
 export default function CartPage(props: CartProps) {
 	return (<Cart {...props} />);

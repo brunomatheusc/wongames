@@ -1,16 +1,7 @@
 import { ThemeProvider } from 'styled-components';
+import { CartContext, CartContexDefaultValues } from 'hooks/use-cart';
 import Global from 'styles/global';
 import theme from 'styles/theme';
-
-// export const parameters = {
-// 	actions: { argTypesRegex: "^on[A-Z].*" },
-// 	controls: {
-// 		matchers: {
-// 			color: /(background|color)$/i,
-// 			date: /Date$/,
-// 		},
-// 	},
-// }
 
 export const parameters = {
 	backgrounds: {
@@ -31,8 +22,14 @@ export const parameters = {
 export const decorators = [
 	(Story) => (
 		<ThemeProvider theme={theme}>
-			<Global removeBg />
-			<Story />
+			<CartContext.Provider value={{
+				...CartContexDefaultValues,
+				...CartContexDefaultValues(context?.args?.cartContextValue || {}),
+				...context.args,
+			}}>
+				<Global removeBg />
+				<Story />
+			</CartContext.Provider>
 		</ThemeProvider>
 	)
 ];

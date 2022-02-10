@@ -9,7 +9,7 @@ import Base from 'templates/Base';
 import * as S from './styles';
 
 export type ProfileTemplateProps = {
-	children: ReactNode;
+	children?: ReactNode;
 }
 
 export default function Profile({ children }: ProfileTemplateProps) {

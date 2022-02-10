@@ -4,5 +4,9 @@ import { ThemeProvider } from 'styled-components';
 import theme from '../../styles/theme';''
 
 export const renderWithTheme = (children: ReactNode): RenderResult => {
-    return render(<ThemeProvider theme={theme}>{ children }</ThemeProvider>);
+    return render(
+		<ThemeProvider theme={theme}>
+			{ children }
+		</ThemeProvider>
+	);
 }
