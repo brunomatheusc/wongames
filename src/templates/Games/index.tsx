@@ -56,9 +56,10 @@ export default function GamesTemplate({ filterItems }: GameTemplateProps) {
 					{ data?.games.length ? (
 					<>
 						<Grid>
-							{data?.games && data.games.map(({ slug, name, developers, price, cover }, index) => (
+							{data?.games && data.games.map(({ id, slug, name, developers, price, cover }, index) => (
 								<GameCard
 									key={`${slug}-${index}`}
+									id={id}
 									title={name}
 									slug={slug}
 									developer={developers[0].name}
