@@ -1,15 +1,16 @@
 import { ReactNode } from 'react';
 import Link from 'next/link';
+import { Favorite, FavoriteBorder } from '@styled-icons/material-outlined';
 
-import { AddShoppingCart, Favorite, FavoriteBorder } from '@styled-icons/material-outlined';
-
-import Button from 'components/Button';
 import Ribbon, { RibbonColors, RibbonSizes } from 'components/Ribbon';
+import CartButton from 'components/CartButton';
 
-import * as S from './styles';
 import formatPrice from 'utils/format-price';
 
+import * as S from './styles';
+
 export type GameCardProps = {
+	id: string;
 	slug: string;
 	title: string;
 	developer: string;
@@ -23,7 +24,7 @@ export type GameCardProps = {
 	ribbonColor?: RibbonColors;
 };
 
-export default function GameCard({ title, slug, developer, img, price, promotionalPrice, favorite = false, onFav, ribbon, ribbonSize, ribbonColor }: GameCardProps) {
+export default function GameCard({ id, title, slug, developer, img, price, promotionalPrice, favorite = false, onFav, ribbon, ribbonSize, ribbonColor }: GameCardProps) {
 	return (
 		<S.Wrapper>
 			{ !!ribbon && <Ribbon color={ribbonColor} size={ribbonSize}>{ ribbon}</Ribbon>}
@@ -52,7 +53,8 @@ export default function GameCard({ title, slug, developer, img, price, promotion
 				<S.BuyBox>
 					{ !!promotionalPrice && <S.Price isPromotional>{ formatPrice(price) }</S.Price>}
 					<S.Price>{formatPrice(promotionalPrice || price)}</S.Price>
-					<Button icon={<AddShoppingCart />} size="small" />
+
+					<CartButton id={id} />
 				</S.BuyBox>
 			</S.Content>
 		</S.Wrapper>

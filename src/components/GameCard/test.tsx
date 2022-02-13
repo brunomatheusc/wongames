@@ -5,6 +5,7 @@ import { renderWithTheme } from 'utils/test/helpers';
 import GameCard from '.';
 
 const props = {
+	id: '1',
 	title: 'Population Zero',
 	slug: 'population-zero',
 	developer: 'Rockstar Games',
