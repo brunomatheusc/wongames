@@ -4,6 +4,7 @@ import { renderWithTheme } from 'utils/test/helpers';
 import GameInfo from '.';
 
 const props = {
+	id: '1',
 	title: 'My game title',
 	description: 'Game description',
 	price: 210.00,
