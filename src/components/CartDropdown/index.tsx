@@ -4,16 +4,11 @@ import Dropdown from 'components/Dropdown';
 import { GameItemProps } from 'components/GameItem';
 import * as S from './styles';
 
-export type CartDropdownProps = {
-	items?: GameItemProps[];
-	total?: string;
-}
-
-export default function CartDropdown({ items, total }: CartDropdownProps) {
+export default function CartDropdown() {
 	return (
 		<S.Wrapper>
             <Dropdown title={<CartIcon />}>
-				<CartList items={items} total={total} hasButton />
+				<CartList hasButton />
 			</Dropdown>
 		</S.Wrapper>
 	);
