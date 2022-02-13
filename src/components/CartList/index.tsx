@@ -4,6 +4,7 @@ import * as S from './styles';
 import GameItem from 'components/GameItem';
 import Button from 'components/Button';
 import Empty from 'components/Empty';
+import Loader from 'components/Loader';
 import { useCart } from 'hooks/use-cart';
 
 export type CartListProps = {
@@ -11,7 +12,15 @@ export type CartListProps = {
 };
 
 export default function CartList({ hasButton = false }: CartListProps) {
-	const { items, total } = useCart();
+	const { items, total, loading } = useCart();
+
+	if (loading) {
+		return (
+			<S.Loading>
+				<Loader />
+			</S.Loading>
+		);
+	}
 
 	return (
 		<S.Wrapper isEmpty={!items.length}>
