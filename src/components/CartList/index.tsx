@@ -25,23 +25,25 @@ export default function CartList({ hasButton = false }: CartListProps) {
 	return (
 		<S.Wrapper isEmpty={!items.length}>
 		{!!items.length ? (
-			<>
-				{ items.map((item) => (
-					<GameItem key={item.title} {...item} />
-				))}
+		<>
+			<S.GamesList>
+			{ items.map((item) => (
+				<GameItem key={item.title} {...item} />
+			))}
+			</S.GamesList>
 
-				<S.Footer>
-					{ !hasButton && <span>Total: </span>}
-					<S.Total>{ total }</S.Total>
+			<S.Footer>
+				{ !hasButton && <span>Total: </span>}
+				<S.Total>{ total }</S.Total>
 
-					{ hasButton && (
-					<Link href="/cart">
-						<Button as="a">Buy it now</Button>
-					</Link>
-					)}
-				</S.Footer>
+				{ hasButton && (
+				<Link href="/cart">
+					<Button as="a">Buy it now</Button>
+				</Link>
+				)}
+			</S.Footer>
 
-			</>
+		</>
 		) : (
 			<Empty title="Your cart is empty" description="Go back to the store and explore great games offers." hasLink />
 		)}
