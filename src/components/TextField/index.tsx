@@ -8,18 +8,18 @@ export type TextFieldProps = {
 	iconPosition?: 'left' | 'right';
 	label?: string;
 	labelColor?: 'white' | 'black';
-	onInput?: (value?: string) => void;
+	onInputChange?: (value?: string) => void;
 	initialValue?: string;
 } & InputHTMLAttributes<HTMLInputElement>;
 
-export default function TextField({ error, label, initialValue = '', onInput, icon, iconPosition = 'left', disabled = false, name, ...props}: TextFieldProps) {
+export default function TextField({ error, label, initialValue = '', onInputChange, icon, iconPosition = 'left', disabled = false, name, ...props}: TextFieldProps) {
 	const [value, setValue] = useState(initialValue);
 
 	function onChange (e: ChangeEvent<HTMLInputElement>) {
 		const newValue = e.currentTarget.value;
 		setValue(newValue);
 
-		!!onInput && onInput(newValue);
+		!!onInputChange && onInputChange(newValue);
 	}
 
 	return (
