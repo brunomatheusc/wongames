@@ -1,9 +1,14 @@
-import { NextApiRequest, NextApiResponse } from 'next';
 import NextAuth from 'next-auth';
 import Providers from 'next-auth/providers';
+import { NextApiRequest, NextApiResponse } from 'next-auth/internals/utils';
 
 interface GenericObject {
 	[x: string]: string;
+}
+
+interface AuthorizeProps {
+	email: string;
+	password: string;
 }
 
 const options = {
@@ -14,7 +19,7 @@ const options = {
 		Providers.Credentials({
 			name: 'Sign-in',
 			credentials: {},
-			async authorize({ email, password }: GenericObject) {
+			async authorize({ email, password }: AuthorizeProps) {
 				const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/local`,
 					{
 						method: 'POST',

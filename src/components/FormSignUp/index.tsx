@@ -12,6 +12,7 @@ import { MUTATION_REGISTER } from 'graphql/mutations/register';
 import * as S from 'components/Form';
 
 export default function FormSignUp() {
+	const [loading, setLoading] = useState(false);
 	const [values, setValues] = useState<UsersPermissionsRegisterInput>({
 		username: '',
 		email: '',
@@ -23,6 +24,8 @@ export default function FormSignUp() {
 	async function handleSubmit(e: FormEvent) {
 		e.preventDefault();
 
+		setLoading(true);
+
 		createUser({
 			variables: {
 				input: {
@@ -32,6 +35,8 @@ export default function FormSignUp() {
 				}
 			}
 		});
+
+		setLoading(false);
 	}
 
 	function handleInput(field: string, value: string) {
@@ -46,7 +51,9 @@ export default function FormSignUp() {
 				<TextField name="password" placeholder="Password" type="password" onInputChange={(v) => handleInput('password', v!)} icon={<Lock />} />
 				<TextField name="confirm-password" placeholder="Confirm password" type="password" onInputChange={(v) => handleInput('confirm-password', v!)} icon={<Lock />} />
 
-				<Button size="large" type="submit" fullWidth>Sign up now</Button>
+				<Button size="large" type="submit" fullWidth disabled={loading}>
+					{ loading ? <S.FormLoading /> : <span>Sign up now</span>}
+				</Button>
 
 				<S.FormLink>
 					Already have an account? <Link href="/sign-in"><a>Sign in</a></Link>
