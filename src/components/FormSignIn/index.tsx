@@ -10,7 +10,7 @@ export default function FormSignIn() {
 		<FormWrapper>
             <form action="">
 				<TextField name="email" placeholder="Email" type="email" icon={<Email />} />
-				<TextField name="password" placeholder="password" type="password" icon={<Lock />} />
+				<TextField name="password" placeholder="Password" type="password" icon={<Lock />} />
 
 				<S.ForgotPassword href="#">Forgot your password?</S.ForgotPassword>
 
