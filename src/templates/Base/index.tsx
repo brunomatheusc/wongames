@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import { useSession } from 'next-auth/client';
 
 import { Container } from 'components/Container/styles';
 import Menu from 'components/Menu';
@@ -11,10 +12,12 @@ export type BaseTemplateProps = {
 };
 
 export default function Base({ children }: BaseTemplateProps) {
+	const [session] = useSession()
+
 	return (
 		<S.Wrapper>
 			<Container>
-				<Menu />
+				<Menu username={session?.user?.name} />
 			</Container>
 
 			<S.Content>{ children }</S.Content>

@@ -53,6 +53,8 @@ export const Link = styled.a<LinkProps>`
 			margin-left: ${theme.spacings.xsmall};
 		}
 
+		cursor: pointer;
+
 		${media.lessThan('medium')`
 			justify-content: center;
 			flex: 1;

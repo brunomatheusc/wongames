@@ -1,5 +1,6 @@
 import { AccountCircle, CreditCard, ExitToApp, FormatListBulleted } from '@styled-icons/material-outlined';
 import Link from 'next/link';
+import { signOut } from 'next-auth/client';
 
 import * as S from './styles';
 
@@ -31,12 +32,10 @@ export default function ProfileMenu({ activeLink }: ProfileMenuProps) {
 				</S.Link>
 			</Link>
 
-            <Link href="/logout" passHref>
-				<S.Link>
-					<ExitToApp size={24} />
-					<span>Sign Out</span>
-				</S.Link>
-			</Link>
+			<S.Link role="button" title="Sign Out" onClick={() => signOut()}>
+				<ExitToApp size={24} />
+				<span>Sign Out</span>
+			</S.Link>
 		</S.Nav>
 	);
 };
