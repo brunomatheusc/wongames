@@ -1,30 +1,41 @@
 import { FormEvent, useState } from 'react';
-import Link from 'next/link';
-import { useMutation } from '@apollo/client';
-import { AccountCircle, Email, Lock } from '@styled-icons/material-outlined';
 
-import Button from 'components/Button';
-import TextField from 'components/TextField';
+import { signIn } from 'next-auth/client';
+import Link from 'next/link';
+
+import { useMutation } from '@apollo/client';
+
+import { AccountCircle, Email, Lock } from '@styled-icons/material-outlined';
 
 import { UsersPermissionsRegisterInput } from 'graphql/generated/globalTypes';
 import { MUTATION_REGISTER } from 'graphql/mutations/register';
 
+import Button from 'components/Button';
+import TextField from 'components/TextField';
+
 import * as S from 'components/Form';
 
 export default function FormSignUp() {
-	const [loading, setLoading] = useState(false);
 	const [values, setValues] = useState<UsersPermissionsRegisterInput>({
 		username: '',
 		email: '',
 		password: ''
 	});
 
-	const [createUser] = useMutation(MUTATION_REGISTER);
+	const [createUser, { error, loading }] = useMutation(MUTATION_REGISTER, {
+		onError: (err) => console.error(err),
+		onCompleted: () => {
+			!error &&
+			signIn('credentials', {
+				email: values.email,
+				password: values.password,
+				callbackUrl: '/'
+			});
+		}
+	});
 
 	async function handleSubmit(e: FormEvent) {
 		e.preventDefault();
-
-		setLoading(true);
 
 		createUser({
 			variables: {
@@ -35,8 +46,6 @@ export default function FormSignUp() {
 				}
 			}
 		});
-
-		setLoading(false);
 	}
 
 	function handleInput(field: string, value: string) {
