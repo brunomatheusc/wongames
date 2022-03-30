@@ -2,18 +2,21 @@ import { useState, FormEvent } from 'react';
 import { signIn } from 'next-auth/client';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { Email, Lock } from '@styled-icons/material-outlined';
+import { Email, Lock, ErrorOutline } from '@styled-icons/material-outlined';
 
 import Button from 'components/Button';
 import TextField from 'components/TextField';
-import { FormWrapper, FormLink, FormLoading } from 'components/Form';
+import { FormWrapper, FormLink, FormLoading, FormError } from 'components/Form';
 
+import { FieldErrors, signInValidate } from 'utils/validations';
 import * as S from './styles';
 
 export default function FormSignIn() {
 	const { push } = useRouter();
 
-	const [values, setValues] = useState({});
+	const [formError, setFormError] = useState('');
+	const [fieldError, setFieldError] = useState<FieldErrors>({});
+	const [values, setValues] = useState({ email: '', password: '' });
 	const [loading, setLoading] = useState(false);
 
 	function handleInput(field: string, value: string) {
@@ -24,30 +27,61 @@ export default function FormSignIn() {
 		event.preventDefault();
 		setLoading(true);
 
-		try {
-			const result = await signIn('credentials', {
-				...values,
-				redirect: false,
-				callbackUrl: '/'
-			});
+		const errors = signInValidate(values);
 
-			if (result?.url) {
-				push(result.url);
-			}
-
+		if (Object.keys(errors).length) {
+			setFieldError(errors);
 			setLoading(false);
 
-			console.error('Email ou senha inválida');
-		} catch (error) {
-			console.log({error});
+			return;
 		}
+
+		setFieldError({});
+
+		const result = await signIn('credentials', {
+			...values,
+			redirect: false,
+			callbackUrl: '/'
+		});
+
+		if (result?.url) {
+			push(result.url);
+		}
+
+		setLoading(false);
+
+		console.error('Email ou senha inválida');
+
+		setFormError('username or password is invalid');
 	}
 
 	return (
 		<FormWrapper>
+			{!!formError && (
+				<FormError>
+					<ErrorOutline />
+					{formError}
+				</FormError>
+			)}
+
             <form onSubmit={handleSubmit}>
-				<TextField name="email" placeholder="Email" type="email" icon={<Email />} onInputChange={(v) => handleInput('email', v!)} />
-				<TextField name="password" placeholder="Password" type="password" icon={<Lock />} onInputChange={(v) => handleInput('password', v!)} />
+				<TextField
+					name="email"
+					placeholder="Email"
+					type="email"
+					icon={<Email />}
+					error={fieldError?.email}
+					onInputChange={(v) => handleInput('email', v!)}
+				/>
+
+				<TextField
+					name="password"
+					placeholder="Password"
+					type="password"
+					icon={<Lock />}
+					error={fieldError?.password}
+					onInputChange={(v) => handleInput('password', v!)}
+				/>
 
 				<S.ForgotPassword href="#">Forgot your password?</S.ForgotPassword>
 

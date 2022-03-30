@@ -5,8 +5,9 @@ import Link from 'next/link';
 
 import { useMutation } from '@apollo/client';
 
-import { AccountCircle, Email, Lock } from '@styled-icons/material-outlined';
+import { AccountCircle, Email, Lock, ErrorOutline } from '@styled-icons/material-outlined';
 
+import { FieldErrors, signUpValidate } from 'utils/validations';
 import { UsersPermissionsRegisterInput } from 'graphql/generated/globalTypes';
 import { MUTATION_REGISTER } from 'graphql/mutations/register';
 
@@ -22,8 +23,11 @@ export default function FormSignUp() {
 		password: ''
 	});
 
+	const [formError, setFormError] = useState<string>('');
+	const [fieldError, setFieldError] = useState<FieldErrors>({});
+
 	const [createUser, { error, loading }] = useMutation(MUTATION_REGISTER, {
-		onError: (err) => console.error(err),
+		onError: (err) => setFormError(err.graphQLErrors[0]?.extensions?.exception.data.message[0].messages[0].message),
 		onCompleted: () => {
 			!error &&
 			signIn('credentials', {
@@ -36,6 +40,16 @@ export default function FormSignUp() {
 
 	async function handleSubmit(e: FormEvent) {
 		e.preventDefault();
+
+		const errors = signUpValidate(values);
+
+		if (Object.keys(errors).length) {
+			setFieldError(errors);
+
+			return;
+		}
+
+		setFieldError({});
 
 		createUser({
 			variables: {
@@ -54,11 +68,18 @@ export default function FormSignUp() {
 
 	return (
 		<S.FormWrapper>
+			{!!formError && (
+				<S.FormError>
+					<ErrorOutline />
+					{formError}
+				</S.FormError>
+			)}
+
             <form onSubmit={handleSubmit}>
-				<TextField name="username" placeholder="Username" type="text" onInputChange={(v) => handleInput('username', v!)} icon={<AccountCircle />} />
-				<TextField name="email" placeholder="Email" type="email" onInputChange={(v) => handleInput('email', v!)} icon={<Email />} />
-				<TextField name="password" placeholder="Password" type="password" onInputChange={(v) => handleInput('password', v!)} icon={<Lock />} />
-				<TextField name="confirm-password" placeholder="Confirm password" type="password" onInputChange={(v) => handleInput('confirm-password', v!)} icon={<Lock />} />
+				<TextField error={fieldError?.username} name="username" placeholder="Username" type="text" onInputChange={(v) => handleInput('username', v!)} icon={<AccountCircle />} />
+				<TextField error={fieldError?.email} name="email" placeholder="Email" type="email" onInputChange={(v) => handleInput('email', v!)} icon={<Email />} />
+				<TextField error={fieldError?.password} name="password" placeholder="Password" type="password" onInputChange={(v) => handleInput('password', v!)} icon={<Lock />} />
+				<TextField error={fieldError?.confirm_password} name="confirm_password" placeholder="Confirm password" type="password" onInputChange={(v) => handleInput('confirm_password', v!)} icon={<Lock />} />
 
 				<Button size="large" type="submit" fullWidth disabled={loading}>
 					{ loading ? <S.FormLoading /> : <span>Sign up now</span>}
