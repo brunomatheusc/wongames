@@ -12,7 +12,7 @@ import { FieldErrors, signInValidate } from 'utils/validations';
 import * as S from './styles';
 
 export default function FormSignIn() {
-	const { push } = useRouter();
+	const { push, query } = useRouter();
 
 	const [formError, setFormError] = useState('');
 	const [fieldError, setFieldError] = useState<FieldErrors>({});
@@ -41,7 +41,7 @@ export default function FormSignIn() {
 		const result = await signIn('credentials', {
 			...values,
 			redirect: false,
-			callbackUrl: '/'
+			callbackUrl: `${window.location.origin}${query?.callbackUrl || ''}`
 		});
 
 		if (result?.url) {
