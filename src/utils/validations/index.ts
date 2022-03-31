@@ -6,6 +6,11 @@ export type FieldErrors = {
 	[key: string]: string;
 }
 
+export type ResetValidateParams = {
+	password: string;
+	confirm_password: string;
+}
+
 const fieldsValidations = {
 	username: Joi.string().min(5).required(),
 	email: Joi.string().email({ tlds: { allow: false }}).required(),
@@ -40,4 +45,19 @@ function getFieldErrors(objError: Joi.ValidationResult) {
 	}
 
 	return errors;
+}
+
+export function forgotValidate(values: Pick<UsersPermissionsRegisterInput, 'email'>) {
+	const { email } = fieldsValidations;
+	const schema = Joi.object({ email });
+
+	return getFieldErrors(schema.validate(values, { abortEarly: false }));
+}
+
+
+export function resetValidate(values: ResetValidateParams) {
+	const { password, confirm_password } = fieldsValidations;
+	const schema = Joi.object({ password, confirm_password });
+
+	return getFieldErrors(schema.validate(values, { abortEarly: false }));
 }
