@@ -1,21 +1,15 @@
 import { useState, FormEvent } from 'react';
-import { useRouter } from 'next/router';
 
-import { signIn } from 'next-auth/client';
+import { CheckCircleOutline, Email, ErrorOutline } from '@styled-icons/material-outlined';
 
-import { Email, ErrorOutline } from '@styled-icons/material-outlined';
-
-import { FieldErrors } from 'utils/validations';
+import { FieldErrors, forgotValidate } from 'utils/validations';
 
 import Button from 'components/Button';
 import TextField from 'components/TextField';
-import { FormWrapper, FormLoading, FormError } from 'components/Form';
-
-import * as S from './styles';
+import { FormWrapper, FormLoading, FormError, FormSuccess } from 'components/Form';
 
 export default function FormForgotPassword() {
-	const { push, query } = useRouter();
-
+	const [success, setSuccess] = useState(false);
 	const [formError, setFormError] = useState('');
 	const [fieldError, setFieldError] = useState<FieldErrors>({});
 	const [values, setValues] = useState({ email: '' });
@@ -29,7 +23,7 @@ export default function FormForgotPassword() {
 		event.preventDefault();
 		setLoading(true);
 
-		const errors = {};
+		const errors = forgotValidate(values);
 
 		if (Object.keys(errors).length) {
 			setFieldError(errors);
@@ -40,25 +34,34 @@ export default function FormForgotPassword() {
 
 		setFieldError({});
 
-		const result = await signIn('credentials', {
-			...values,
-			redirect: false,
-			callbackUrl: `${window.location.origin}${query?.callbackUrl || ''}`
+		const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/forgot-password`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify(values),
 		});
 
-		if (result?.url) {
-			push(result.url);
-		}
-
+		const data = await response.json();
 		setLoading(false);
 
-		console.error('Email ou senha inválida');
+		if (data.error) {
+			setFormError(data.message[0].messages[0].message);
+			return false;
+		}
 
-		setFormError('username or password is invalid');
+		setSuccess(true);
 	}
 
 	return (
 		<FormWrapper>
+		{ success ? (
+			<FormSuccess>
+				<CheckCircleOutline />
+				You just received an email!
+			</FormSuccess>
+		) : (
+			<>
 			{!!formError && (
 				<FormError>
 					<ErrorOutline />
@@ -66,7 +69,7 @@ export default function FormForgotPassword() {
 				</FormError>
 			)}
 
-            <form onSubmit={handleSubmit}>
+			<form onSubmit={handleSubmit}>
 				<TextField
 					name="email"
 					placeholder="Email"
@@ -80,6 +83,8 @@ export default function FormForgotPassword() {
 					{ loading ? <FormLoading /> : <span>Send email</span>}
 				</Button>
 			</form>
+			</>
+		)}
 		</FormWrapper>
 	);
 };
