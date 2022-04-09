@@ -1,4 +1,5 @@
 import { useState, FormEvent } from 'react';
+import { useRouter } from 'next/router';
 
 import { CheckCircleOutline, Email, ErrorOutline } from '@styled-icons/material-outlined';
 
@@ -9,10 +10,11 @@ import TextField from 'components/TextField';
 import { FormWrapper, FormLoading, FormError, FormSuccess } from 'components/Form';
 
 export default function FormForgotPassword() {
+	const { query } = useRouter();
 	const [success, setSuccess] = useState(false);
 	const [formError, setFormError] = useState('');
 	const [fieldError, setFieldError] = useState<FieldErrors>({});
-	const [values, setValues] = useState({ email: '' });
+	const [values, setValues] = useState({ email: (query.email as string) || '' });
 	const [loading, setLoading] = useState(false);
 
 	function handleInput(field: string, value: string) {
@@ -73,6 +75,7 @@ export default function FormForgotPassword() {
 				<TextField
 					name="email"
 					placeholder="Email"
+					initialValue={query.email as string}
 					type="email"
 					icon={<Email />}
 					error={fieldError?.email}
