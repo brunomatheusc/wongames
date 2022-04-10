@@ -11,6 +11,7 @@ import { FormWrapper, FormLoading, FormError, FormSuccess } from 'components/For
 
 export default function FormForgotPassword() {
 	const { query } = useRouter();
+
 	const [success, setSuccess] = useState(false);
 	const [formError, setFormError] = useState('');
 	const [fieldError, setFieldError] = useState<FieldErrors>({});

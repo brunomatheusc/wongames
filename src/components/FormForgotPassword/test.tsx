@@ -1,37 +1,61 @@
-import { screen } from '@testing-library/react';
-import { renderWithTheme } from 'utils/test/helpers';
+import { render, screen } from 'utils/test-utils';
 
-import FormSignIn from '.';
+import 'server.mock';
+import FormForgotPassword from '.';
+import userEvent from '@testing-library/user-event';
 
 const useRouter = jest.spyOn(require('next/router'), 'useRouter');
 const push = jest.fn();
+let query = {};
 
 useRouter.mockImplementation(() => ({
 	push,
-	query: '',
+	query,
 	asPath: '',
 	route: '/'
 }));
 
-describe('<FormSignIn />', () => {
+describe('<FormForgotPassword />', () => {
 	it('should render the form', () => {
-		renderWithTheme(<FormSignIn />);
+		render(<FormForgotPassword />);
 
 		expect(screen.getByPlaceholderText(/email/i)).toBeInTheDocument();
-		expect(screen.getByPlaceholderText(/password/i)).toBeInTheDocument();
-		expect(screen.getByRole('button', { name: /Sign in now/i})).toBeInTheDocument();
+		expect(screen.getByRole('button', { name: /send email/i})).toBeInTheDocument();
 	});
 
-	it('should render the forgot password link', () => {
-		renderWithTheme(<FormSignIn />);
+	it('should validate the email', async () => {
+		render(<FormForgotPassword />);
 
-		expect(screen.getByRole('link', { name: /Forgot your password\?/i }));
+		userEvent.type(screen.getByPlaceholderText(/email/i), 'valid@email.com');
+		userEvent.click(screen.getByRole('button', { name: /send email/i}));
+
+		expect(await screen.findByText(/you just received an email/i)).toBeInTheDocument();
 	});
 
-	it('should render text to sign up if already have an account', () => {
-		renderWithTheme(<FormSignIn />);
+	it('should show an invalid email', async () => {
+		render(<FormForgotPassword />);
 
-		expect(screen.getByRole('link', { name: /sign up/i })).toBeInTheDocument();
-		expect(screen.getByText(/don't have an account\?/i)).toBeInTheDocument();
+		userEvent.type(screen.getByPlaceholderText(/email/i), 'invalid');
+		userEvent.click(screen.getByRole('button', { name: /send email/i}));
+
+		expect(await screen.findByText(/must be a valid email/i)).toBeInTheDocument();
+	});
+
+	it('should show an inexistent email error', async () => {
+		render(<FormForgotPassword />);
+
+		userEvent.type(screen.getByPlaceholderText(/email/i), 'false@email.com');
+		userEvent.click(screen.getByRole('button', { name: /send email/i}));
+
+		expect(await screen.findByText(/this email does not exist/i)).toBeInTheDocument();
+	});
+
+	it('should autofill if comes via logged user', async () => {
+		const email = 'valid@email.com';
+		query = { email };
+
+		render(<FormForgotPassword />);
+
+		expect(screen.getByPlaceholderText(/email/i)).toHaveValue(email);
 	});
 });
