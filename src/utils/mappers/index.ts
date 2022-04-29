@@ -1,5 +1,6 @@
 import { QueryGames_games } from "graphql/generated/QueryGames";
 import { QueryHome_banners, QueryHome_sections_freeGames_highlight } from "graphql/generated/QueryHome";
+import { QueryWishlist_wishlists_games} from "graphql/generated/QueryWishlist";
 import formatPrice from "utils/format-price";
 
 export function bannerMapper(banners: QueryHome_banners[]) {
@@ -19,12 +20,12 @@ export function bannerMapper(banners: QueryHome_banners[]) {
 	}));
 }
 
-export function gamesMapper(games: QueryGames_games[] | null | undefined) {
+export function gamesMapper(games: QueryGames_games[] | QueryWishlist_wishlists_games[] | null | undefined) {
 	return games ? games.map(({ id, name, slug, developers, cover, price }) => ({
 		id: id,
 		title: name,
 		slug,
-		developers: developers[0].name,
+		developer: developers[0].name,
 		img: `http://localhost:1337${cover?.url}`,
 		price
 	})) : [];
