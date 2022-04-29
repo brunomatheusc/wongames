@@ -47,8 +47,7 @@ const WishlistProvider = ({ children }: WishlistProviderProps) => {
 	const [updateList, { loading: loadingUpdate }] = useMutation(MUTATION_UPDATE_WISHLIST, {
 		context: { session },
 		onCompleted: (data) => {
-			setWishlistItems(data?.createWishlist?.wishlist?.games || []);
-			setWishlistId(data?.createWishlist?.wishlist?.id);
+			setWishlistItems(data?.updateWishlist?.wishlist?.games || []);
 		},
 	});
 
@@ -68,7 +67,7 @@ const WishlistProvider = ({ children }: WishlistProviderProps) => {
 	const wishlistIds = useMemo(() => wishlistItems.map(game => game.id), [wishlistItems]);
 
 	function isInWishlist(id: string){
-		return !!wishlistItems.find((game) => game.id === id);
+		return wishlistItems.some(game => game.id === id);
 	}
 
 	function addToWishlist(id: string){
