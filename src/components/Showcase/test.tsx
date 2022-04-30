@@ -1,4 +1,6 @@
 import '../../../.jest/match-media-mock';
+import '../../../.jest/session.mock';
+
 import { screen } from '@testing-library/react';
 import { renderWithTheme } from 'utils/test/helpers';
 

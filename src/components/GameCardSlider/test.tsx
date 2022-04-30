@@ -1,5 +1,7 @@
-import { screen } from '@testing-library/react';
+import '../../../.jest/session.mock';
 import '../../../.jest/match-media-mock';
+
+import { screen } from '@testing-library/react';
 
 import items from './mock';
 

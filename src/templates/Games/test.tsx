@@ -1,3 +1,5 @@
+import '../../../.jest/session.mock';
+
 import { screen } from '@testing-library/react';
 import { renderWithTheme } from 'utils/test/helpers';
 import {MockedProvider} from '@apollo/client/testing';

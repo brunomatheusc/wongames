@@ -25,6 +25,6 @@ describe('<GameInfo />', () => {
 		renderWithTheme(<GameInfo {...props} />);
 
 		expect(screen.getByRole('button', { name: /add to cart/i })).toBeInTheDocument();
-		expect(screen.getByRole('button', { name: /wishlist/i })).toBeInTheDocument();
+		expect(screen.getByRole('button', { name: /add to wishlist/i })).toBeInTheDocument();
 	});
 });
