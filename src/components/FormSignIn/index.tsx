@@ -49,12 +49,12 @@ export default function FormSignIn() {
 
 		if (result?.url) {
 			push(result.url);
+			setLoading(false);
+
+			return true;
 		}
 
 		setLoading(false);
-
-		console.error('Email ou senha inválida');
-
 		setFormError('username or password is invalid');
 	}
 

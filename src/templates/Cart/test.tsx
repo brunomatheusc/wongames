@@ -1,15 +1,12 @@
-import { render, screen } from '@testing-library/react';
+import { ReactNode } from 'react';
+import { render, screen } from 'utils/test-utils';
 
-import cardsMock from 'components/PaymentOptions/mock';
 import gamesMock from 'components/GameCardSlider/mock';
 import highlightMock from 'components/Highlight/mock';
 
 import Cart, { CartProps } from '.';
-import { renderWithTheme } from 'utils/test/helpers';
-import { ReactNode } from 'react';
 
 const props: CartProps = {
-	cards: cardsMock,
 	recommendedGames: gamesMock,
 	recommendedHighlight: highlightMock,
 }
@@ -35,10 +32,10 @@ jest.mock('components/CartList', () => ({
 	}
 }));
 
-jest.mock('components/PaymentOptions', () => ({
+jest.mock('components/PaymentForm', () => ({
 	__esModule: true,
 	default: function Mock() {
-		return <div data-testid="Mock PaymentOptions" />
+		return <div data-testid="Mock PaymentForm" />
 	}
 }));
 
@@ -51,13 +48,13 @@ jest.mock('components/Empty', () => ({
 
 describe('<Cart />', () => {
 	it('should render the Cart', () => {
-		renderWithTheme(<Cart {...props} />);
+		render(<Cart {...props} />);
 
 		expect(screen.getByRole('heading', { name: /my cart/i }));
 
 		expect(screen.getByTestId('Mock Showcase')).toBeInTheDocument();
 		expect(screen.getByTestId('Mock Cart')).toBeInTheDocument();
-		expect(screen.getByTestId('Mock PaymentOptions')).toBeInTheDocument();
-		expect(screen.queryByTestId('Mock PaymentOptions')).not.toBeInTheDocument();
+		expect(screen.getByTestId('Mock PaymentForm')).toBeInTheDocument();
+		expect(screen.queryByTestId('Mock PaymentForm')).not.toBeInTheDocument();
 	});
 });

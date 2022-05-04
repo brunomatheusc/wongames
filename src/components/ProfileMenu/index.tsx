@@ -1,4 +1,4 @@
-import { AccountCircle, CreditCard, ExitToApp, FormatListBulleted } from '@styled-icons/material-outlined';
+import { AccountCircle, ExitToApp, FormatListBulleted } from '@styled-icons/material-outlined';
 import Link from 'next/link';
 import { signOut } from 'next-auth/client';
 
@@ -15,13 +15,6 @@ export default function ProfileMenu({ activeLink }: ProfileMenuProps) {
 				<S.Link isActive={!!(activeLink == "/profile/me")} title="My Profile">
 					<AccountCircle size={24} />
 					<span>My Profile</span>
-				</S.Link>
-			</Link>
-
-            <Link href="/profile/cards" passHref>
-				<S.Link isActive={!!(activeLink == "/profile/cards")} title="My Cards">
-					<CreditCard size={24} />
-					<span>My Cards</span>
 				</S.Link>
 			</Link>
 
