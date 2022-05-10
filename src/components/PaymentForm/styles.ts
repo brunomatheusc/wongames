@@ -46,3 +46,9 @@ export const Error = styled.p`
 		}
 	`}
 `;
+
+export const FreeGames = styled.p`
+	${({ theme }) => css`
+		color: ${theme.colors.black};
+	`}
+`;
