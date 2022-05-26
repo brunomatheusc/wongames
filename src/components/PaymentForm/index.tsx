@@ -1,11 +1,14 @@
 import { FormEvent, useEffect, useState } from 'react';
 import { Session } from 'next-auth';
+import { useRouter } from 'next/router';
+
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
-import { StripeCardElementChangeEvent } from '@stripe/stripe-js';
+import { PaymentIntent, StripeCardElementChangeEvent } from '@stripe/stripe-js';
+
 import { ShoppingCart, ErrorOutline } from '@styled-icons/material-outlined';
 
 import { useCart } from 'hooks/use-cart';
-import { createPaymentIntent } from 'utils/stripe/methods';
+import { createPayment, createPaymentIntent } from 'utils/stripe/methods';
 
 import Button from 'components/Button';
 import Heading from 'components/Heading';
@@ -18,7 +21,9 @@ type PaymentFormProps = {
 };
 
 export default function PaymentForm({ session }: PaymentFormProps) {
-	const { items } = useCart();
+	const { items, clearCart } = useCart();
+	const { push } = useRouter();
+
 	const [error, setError] = useState<string | null>(null);
 	const [loading, setLoading] = useState<boolean>(false);
 	const [disabled, setDisabled] = useState<boolean>(true);
@@ -63,21 +68,36 @@ export default function PaymentForm({ session }: PaymentFormProps) {
 
 		setLoading(true);
 
-		const payload = await stripe!.confirmCardPayment(clientSecret, {
-			payment_method: {
-				card: elements!.getElement(CardElement)!,
+		if (freeGames) {
+			await saveOrder();
+		} else {
+			const payload = await stripe!.confirmCardPayment(clientSecret, {
+				payment_method: {
+					card: elements!.getElement(CardElement)!,
+				}
+			});
+
+			if (payload.error){
+				setError(`Payment failed ${payload.error.message}`);
+				setLoading(false);
+
+				return;
 			}
-		});
 
-		if (payload.error){
-			setError(`Payment failed ${payload.error.message}`);
-			setLoading(false);
-
-			return;
+			await saveOrder(payload.paymentIntent);
 		}
 
+		push('/success');
+
+		clearCart();
 		setError(null);
 		setLoading(false);
+	}
+
+	async function saveOrder(paymentIntent?: PaymentIntent) {
+		const data = await createPayment({ items, paymentIntent, token: session.jwt as string });
+
+		return data;
 	}
 
 	return (
