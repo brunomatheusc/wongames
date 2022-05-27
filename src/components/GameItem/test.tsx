@@ -1,5 +1,4 @@
-import { screen } from '@testing-library/react';
-import { renderWithTheme } from 'utils/test/helpers';
+import { render, screen } from 'utils/test-utils';
 
 import GameItem, { GameItemProps, PaymentInfoProps } from '.';
 
@@ -12,7 +11,7 @@ const props: GameItemProps = {
 
 describe('<GameItem />', () => {
 	it('should render the GameItem', () => {
-		renderWithTheme(<GameItem {...props} />);
+		render(<GameItem {...props} />);
 
 		expect(screen.getByRole('heading', { name: props.title })).toBeInTheDocument();
 		expect(screen.getByRole('img')).toHaveAttribute('src', props.img);
@@ -22,7 +21,7 @@ describe('<GameItem />', () => {
 	it('should render the item with download link', () => {
 		const downloadLink = 'https://link';
 
-		renderWithTheme(<GameItem {...props} downloadLink={downloadLink} />);
+		render(<GameItem {...props} downloadLink={downloadLink} />);
 
 		expect(screen.getByRole('link', { name: `Get ${props.title} here`})).toHaveAttribute('href', downloadLink);
 	});
@@ -35,10 +34,23 @@ describe('<GameItem />', () => {
 			purchaseDate: 'Purchase made on 07/20/2020 at 8:32',
 		};
 
-		renderWithTheme(<GameItem {...props} paymentInfo={paymentInfo} />);
+		render(<GameItem {...props} paymentInfo={paymentInfo} />);
 
-		expect(screen.getByRole('img', { name: paymentInfo.flag })).toHaveAttribute('src', paymentInfo.img);
+		expect(screen.getByRole('img', { name: paymentInfo.flag! })).toHaveAttribute('src', paymentInfo.img);
 		expect(screen.getByText(paymentInfo.number)).toBeInTheDocument();
 		expect(screen.getByText(paymentInfo.purchaseDate)).toBeInTheDocument();
+	});
+
+	it('should render freem game when there is no payment info', () => {
+		const paymentInfo: PaymentInfoProps = {
+			flag: null,
+			img: null,
+			number: 'Free Game',
+			purchaseDate: 'Purchase made on 07/20/2020 at 8:32',
+		};
+
+		render(<GameItem {...props} paymentInfo={paymentInfo} />);
+
+		expect(screen.getByText(/free game/i)).toBeInTheDocument();
 	});
 });
