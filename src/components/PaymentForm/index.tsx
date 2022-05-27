@@ -106,28 +106,28 @@ export default function PaymentForm({ session }: PaymentFormProps) {
 				<S.Body>
 					<Heading color="black" size="small" lineBottom>Payment</Heading>
 
-					{ freeGames ? (
-						<S.FreeGames>Only free games, click buy and enjoy!</S.FreeGames>
-					) : (
-						<CardElement
-							options={{
-								hidePostalCode: true,
-								style: {
-									base: {
-										fontSize: '16px',
-									}
+				{ freeGames ? (
+					<S.FreeGames>Only free games, click buy and enjoy!</S.FreeGames>
+				) : (
+					<CardElement
+						options={{
+							hidePostalCode: true,
+							style: {
+								base: {
+									fontSize: '16px',
 								}
-							}}
-							onChange={handleChange}
-						/>
-					) }
+							}
+						}}
+						onChange={handleChange}
+					/>
+				)}
 
-					{ error && (
-						<S.Error>
-							<ErrorOutline size={20} />
-							{error}
-						</S.Error>
-					)}
+				{ error && (
+					<S.Error>
+						<ErrorOutline size={20} />
+						{error}
+					</S.Error>
+				)}
 				</S.Body>
 
 				<S.Footer>
