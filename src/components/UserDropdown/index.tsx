@@ -6,12 +6,15 @@ import { ChevronDown } from '@styled-icons/boxicons-regular/ChevronDown';
 
 import Dropdown from 'components/Dropdown';
 import * as S from './styles';
+import { useRouter } from 'next/router';
 
 export type UserDropdownProps = {
 	username: string;
 }
 
 export default function UserDropdown({ username }: UserDropdownProps) {
+	const { push } = useRouter();
+
 	const title = (
 		<>
 			<AccountCircle size={24} />
@@ -37,8 +40,14 @@ export default function UserDropdown({ username }: UserDropdownProps) {
 					</S.Link>
 				</Link>
 
-				<S.Link role="button" title="Sign Out" onClick={() => signOut()}>
-					<ExitToApp />
+				<S.Link
+					role="button"
+					title="Sign Out"
+					onClick={async () => {
+						const data = await signOut({ redirect: false, callbackUrl: '/' });
+						push(data.url);
+					}}>
+						<ExitToApp />
 					<span>Sign Out</span>
 				</S.Link>
 			</S.Nav>

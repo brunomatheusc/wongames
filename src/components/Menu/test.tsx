@@ -3,6 +3,13 @@ import { renderWithTheme } from '../../utils/test/helpers';
 
 import Menu from '.';
 
+const useRouter = jest.spyOn(require('next/router'), 'useRouter');
+const push = jest.fn();
+
+useRouter.mockImplementation(() => ({
+	push,
+}));
+
 describe('<Menu />', () => {
 	it('should render the Menu', () => {
 		renderWithTheme(<Menu />);

@@ -4,6 +4,13 @@ import { renderWithTheme } from 'utils/test/helpers';
 
 import ProfileMenu from '.';
 
+const useRouter = jest.spyOn(require('next/router'), 'useRouter');
+const push = jest.fn();
+
+useRouter.mockImplementation(() => ({
+	push,
+}));
+
 describe('<ProfileMenu />', () => {
 	it('should render the ProfileMenu', () => {
 		renderWithTheme(<ProfileMenu />);

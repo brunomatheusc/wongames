@@ -4,6 +4,13 @@ import { renderWithTheme } from 'utils/test/helpers';
 
 import UserDropdown from '.';
 
+const useRouter = jest.spyOn(require('next/router'), 'useRouter');
+const push = jest.fn();
+
+useRouter.mockImplementation(() => ({
+	push,
+}));
+
 describe('<UserDropdown />', () => {
 	it('should render username', () => {
 		const username = "Bruno";
