@@ -13,6 +13,7 @@ import { parseQueryStringToWhere, parseQueryStringToFilter } from 'utils/filter'
 import { Grid } from 'components/Grid';
 import * as S from './styles';
 import Empty from 'components/Empty';
+import { getImageUrl } from 'utils/getImageUrl';
 
 export type GameTemplateProps = {
 	filterItems: ItemProps[];
@@ -63,7 +64,7 @@ export default function GamesTemplate({ filterItems }: GameTemplateProps) {
 									title={name}
 									slug={slug}
 									developer={developers[0].name}
-									img={`http://localhost:1337${cover?.url}`}
+									img={`${getImageUrl(cover?.url)}`}
 									price={price}
 								/>
 							))}
