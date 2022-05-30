@@ -1,3 +1,7 @@
+import { NextSeo } from 'next-seo';
+
+import Base from 'templates/Base';
+
 import { Divider } from 'components/Divider';
 import Gallery, { GalleryImageProps } from 'components/Gallery';
 import { GameCardProps } from 'components/GameCard';
@@ -6,11 +10,11 @@ import GameInfo, { GameInfoProps } from 'components/GameInfo';
 import { HighlightProps } from 'components/Highlight';
 import Showcase from 'components/Showcase';
 import TextContent from 'components/TextContent';
-import Base from 'templates/Base';
 
 import * as S from './styles';
 
 export type GameTemplateProps = {
+	slug?: string;
 	cover: string;
 	gameInfo: GameInfoProps;
 	gallery?: GalleryImageProps[];
@@ -21,9 +25,26 @@ export type GameTemplateProps = {
 	recommendedGames: GameCardProps[];
 };
 
-export default function Game({ cover, gameInfo, gallery, description, details, upcomingGames: upcommingGames, upcomingHighlight: upcommingHighlight, recommendedGames }: GameTemplateProps) {
+export default function Game({ slug, cover, gameInfo, gallery, description, details, upcomingGames: upcommingGames, upcomingHighlight: upcommingHighlight, recommendedGames }: GameTemplateProps) {
 	return (
 		<Base>
+			<NextSeo
+				title={`${gameInfo.title} - Won Games`}
+				description={gameInfo.description}
+				canonical={`https://wongames.willianjusten.com.br/game/${slug}`}
+				openGraph={{
+					url: `https://wongames.willianjusten.com.br/game/${slug}`,
+					title: `${gameInfo.title} - Won Games`,
+					description: gameInfo.description,
+					images: [
+						{
+							url: cover,
+							alt: gameInfo.title
+						}
+					]
+				}}
+			/>
+
             <S.Cover src={cover} role="image" aria-label="cover" />
 
 			<S.Main>
