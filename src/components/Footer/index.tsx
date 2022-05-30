@@ -1,7 +1,9 @@
+import Link from 'next/link';
+
 import Heading from 'components/Heading';
 import Logo from 'components/Logo';
+
 import * as S from './styles';
-import Link from 'next/link';
 
 export default function Footer() {
 	return (
@@ -15,10 +17,10 @@ export default function Footer() {
 					<a href="mailto:sac@wongames.com">sac@wongames.com</a>
 				</S.Column>
 
-				<S.Column>
+				<S.Column aria-labelledby="social-media">
 					<Heading color="black" lineColor="secondary" lineBottom size="small">Follow us</Heading>
 
-					<nav aria-labelledby="social-media">
+					<nav id="social-media">
 						<a href="https://www.instagram.com/won-games" target="_blank" rel="noopenner, norefereer">Instagram</a>
 						<a href="https://www.twitter.com/won-games" target="_blank" rel="noopenner, norefereer">Twitter</a>
 						<a href="https://www.youtube.com/won-games" target="_blank" rel="noopenner, norefereer">YouTube</a>
@@ -26,17 +28,17 @@ export default function Footer() {
 					</nav>
 				</S.Column>
 
-				<S.Column>
+				<S.Column aria-labelledby="resources">
 					<Heading color="black" lineColor="secondary" lineBottom size="small">Links</Heading>
 
-					<nav aria-labelledby="footer resources">
+					<nav id="resources">
 						<Link href="/">Home</Link>
 						<Link href="/">Store</Link>
 						<Link href="/">Buscar</Link>
 					</nav>
 				</S.Column>
 
-				<S.Column aria-labelledby="footer-contact">
+				<S.Column aria-label="contact">
 					<Heading color="black" lineColor="secondary" lineBottom size="small">Location</Heading>
 
 					<span>Lorem ipsum dolor sit.</span>

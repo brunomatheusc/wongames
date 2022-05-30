@@ -13,11 +13,9 @@ export default function CartButton({ id, size = 'small', hasText = false }: Cart
 
 	return (
 		<Button
-			icon={isInCart(id)
-				? <RemoveShoppingCart aria-label="Remove from cart" />
-				: <AddShoppingCart aria-label="Add to cart" />
-			}
+			icon={isInCart(id) ? <RemoveShoppingCart /> : <AddShoppingCart />}
 			size="small"
+			aria-label={ButtonText}
 			onClick={() => (isInCart(id) ? removeFromCart(id) : addToCart(id))}
 		>
 			{ hasText && ButtonText}

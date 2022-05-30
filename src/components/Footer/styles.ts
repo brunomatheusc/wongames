@@ -25,10 +25,15 @@ export const Column = styled.div`
 	${({ theme }) => css`
 		a, span {
 			display: block;
-			color: ${theme.colors.gray};
+			color: ${theme.colors.black};
 			text-decoration: none;
 			margin-bottom: ${theme.spacings.xxsmall};
-			font-size: ${theme.font.sizes.small};
+			font-size: ${theme.font.sizes.medium};
+		}
+
+		a {
+			word-wrap: break-word;
+			overflow-wrap: break-word;
 		}
 
 		a:hover {
