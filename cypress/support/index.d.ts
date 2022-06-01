@@ -7,5 +7,11 @@ declare namespace Cypress {
          * @example cy.google()
 		*/
 		google(): Chainable<Cypress.AUTWindow | null>;
+
+        /**
+         * Custom command to check banner in page
+         * @example cy.google()
+		*/
+		shouldRenderBanner(): Chainable<Element>;
     }
 }
