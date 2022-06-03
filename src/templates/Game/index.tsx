@@ -25,7 +25,9 @@ export type GameTemplateProps = {
 	recommendedGames: GameCardProps[];
 };
 
-export default function Game({ slug, cover, gameInfo, gallery, description, details, upcomingGames: upcommingGames, upcomingHighlight: upcommingHighlight, recommendedGames }: GameTemplateProps) {
+export default function Game({ slug, cover, gameInfo, gallery, description, details, upcomingGames, upcomingHighlight, recommendedGames }: GameTemplateProps) {
+	console.log({ upcomingGames });
+
 	return (
 		<Base>
 			<NextSeo
@@ -66,7 +68,7 @@ export default function Game({ slug, cover, gameInfo, gallery, description, deta
 					<Divider />
 				</S.SectionGameDetails>
 
-				<Showcase title="Upcoming" games={upcommingGames} highlight={upcommingHighlight} />
+				<Showcase title="Upcoming Games" games={upcomingGames} highlight={upcomingHighlight} />
 
 				<Showcase title="You may like these games" games={recommendedGames} />
 			</S.Main>
