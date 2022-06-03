@@ -19,13 +19,13 @@ export type GameDetailsProps = {
 
 export default function GameDetails({ developer, platforms, releaseDate, publisher, rating, genres }: GameDetailsProps) {
 	const platformIcons = {
-		linux: <FaLinux title="Linux" size={18} />,
-		windows: <FaWindows title="Windows" size={18} />,
-		mac: <FaApple title="Apple" size={18} />,
+		linux: <FaLinux title="Linux" size={18} role="img" />,
+		windows: <FaWindows title="Windows" size={18} role="img" />,
+		mac: <FaApple title="Apple" size={18} role="img" />,
 	};
 
 	return (
-		<S.Wrapper>
+		<S.Wrapper data-cy="game-details">
 			<MediaMatch greaterThan="small">
 	            <Heading lineLeft lineColor="secondary">Game Details</Heading>
 			</MediaMatch>
@@ -68,7 +68,7 @@ export default function GameDetails({ developer, platforms, releaseDate, publish
 				</S.Block>
 
 				<S.Block>
-					<S.Title>Genre</S.Title>
+					<S.Title>Genres</S.Title>
 					<S.Description>{ genres.join(' / ') }</S.Description>
 				</S.Block>
 			</S.Content>
