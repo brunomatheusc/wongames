@@ -14,7 +14,7 @@ export type ShowCaseProps = {
 
 export default function Showcase({ title, games, highlight, color = 'white' }: ShowCaseProps) {
 	return (
-		<S.Wrapper>
+		<S.Wrapper data-cy={title || 'showcase'}>
 			{ !!title && (
 			<Heading lineLeft lineColor="secondary">
 				{title}

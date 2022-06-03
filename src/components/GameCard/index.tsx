@@ -25,7 +25,7 @@ export type GameCardProps = {
 
 export default function GameCard({ id, title, slug, developer, img, price, promotionalPrice, ribbon, ribbonSize, ribbonColor }: GameCardProps) {
 	return (
-		<S.Wrapper>
+		<S.Wrapper data-cy="game-card">
 			{ !!ribbon && <Ribbon color={ribbonColor} size={ribbonSize}>{ ribbon}</Ribbon>}
 
 			<Link href={`/game/${slug}`} passHref>
