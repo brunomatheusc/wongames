@@ -9,6 +9,13 @@ type FieldsAttributes = {
 	label: string;
 	name: string;
 };
+
+type User = {
+	username: string;
+	email: string;
+	password: string;
+};
+
 declare namespace Cypress {
     interface Chainable {
         /**
@@ -23,6 +30,12 @@ declare namespace Cypress {
 		*/
 		getByDataCy(selector: string): Chainable<Element>;
 
+		/**
+		 * Custom command to get fields by label
+		 * @example cy.getFields(attrs: FieldsAttributes)
+		*/
+		getFields(label: FieldsAttributes[]): Chainable<Element>;
+
         /**
          * Custom command to check banner in page
          * @example cy.shouldRenderBanner()
@@ -36,15 +49,15 @@ declare namespace Cypress {
 		shouldRenderShowcase(attrs: ShowcaseAttributes): Chainable<Element>;
 
 		/**
-		 * Custom command to get fields by label
-		 * @example cy.getFields(attrs: FieldsAttributes)
-		*/
-		getFields(label: FieldsAttributes[]): Chainable<Element>;
-
-		/**
 		 * Custom command to check if value is less or greater than price
 		 * @example cy.getFields(attrs: FieldsAttributes)
 		*/
 		shouldBeLessOrGreater(value: number, type: 'greater' | 'less'): Chainable<Element>;
+
+		/**
+		 * Custom command to crate new user
+		 * @example cy.signUp({ username: 'Cypress e2e', email: 'e2e@wongames.com', password: '123456'})
+		*/
+		signUp(user: User): Chainable<Element>;
     }
 }
