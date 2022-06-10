@@ -55,7 +55,13 @@ declare namespace Cypress {
 		shouldBeLessOrGreater(value: number, type: 'greater' | 'less'): Chainable<Element>;
 
 		/**
-		 * Custom command to crate new user
+		 * Custom command to sign in
+		 * @example cy.signIn()
+		*/
+		signIn(email?: string, password?: string): Chainable<Element>;
+
+		/**
+		 * Custom command to create new user
 		 * @example cy.signUp({ username: 'Cypress e2e', email: 'e2e@wongames.com', password: '123456'})
 		*/
 		signUp(user: User): Chainable<Element>;
