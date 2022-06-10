@@ -5,6 +5,10 @@ type ShowcaseAttributes = {
 	highlight?: boolean;
 };
 
+type FieldsAttributes = {
+	label: string;
+	name: string;
+};
 declare namespace Cypress {
     interface Chainable {
         /**
@@ -30,5 +34,17 @@ declare namespace Cypress {
 		 * @example cy.shouldRenderShowcase(attrs: ShowcaseAttributes)
 		*/
 		shouldRenderShowcase(attrs: ShowcaseAttributes): Chainable<Element>;
+
+		/**
+		 * Custom command to get fields by label
+		 * @example cy.getFields(attrs: FieldsAttributes)
+		*/
+		getFields(label: FieldsAttributes[]): Chainable<Element>;
+
+		/**
+		 * Custom command to check if value is less or greater than price
+		 * @example cy.getFields(attrs: FieldsAttributes)
+		*/
+		shouldBeLessOrGreater(value: number, type: 'greater' | 'less'): Chainable<Element>;
     }
 }
