@@ -25,6 +25,18 @@ declare namespace Cypress {
 		google(): Chainable<Cypress.AUTWindow | null>;
 
         /**
+         * Custom command to visit google page
+         * @example cy.google()
+		*/
+		addToCartByIndex(index: number): Chainable<Element>;
+
+        /**
+         * Custom command to visit google page
+         * @example cy.google()
+		*/
+		removeFromCartByIndex(index: number): Chainable<Element>;
+
+        /**
          * Custom command to get element by data-cy values
          * @example cy.getByDataCy('selector')
 		*/
