@@ -25,7 +25,7 @@ export default function Wishlist({ recommendedTitle = "You may like these games"
 
 	return (
 		<Base>
-			<Container>
+			<Container data-cy="wishlist">
 	            <Heading lineLeft lineColor="secondary">Wishlist</Heading>
 
 				{ loading ? (
