@@ -9,6 +9,7 @@
 		"start": "next start",
 		"test": "jest",
 		"test:e": "start-server-and-test dev 3004 cypress",
+		"test:e2e:ci": "start-server-and-test dev 3004 cy:run",
 		"cypress": "cypress open",
 		"cy:run": "cypress run",
 		"test:watch": "yarn test --watch",
